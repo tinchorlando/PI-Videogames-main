@@ -1,12 +1,15 @@
 const { Router } = require('express');
-const { getAll , postVid } = require('./utils/utils.js');
+const { getAll , postVid , getSome} = require('./utils/utils.js');
 const app = Router();
 app.get('/',async(req,res,next)=>{
-    try{        
-        res.status(200).send(await getAll());        
-        // res.status(200).json(getSome(name))
+    try{    
+        const {name} = req.query    
+        if (name) res.status(200).json(await getSome(name))
+        else res.status(200).send(await getAll());        
     } catch(error){
-        next(error)
+        res.status(404).json({
+            "Error":"Juego no encontrado",
+        })
     }
 })
 app.post('/',async(req,res,next)=>{

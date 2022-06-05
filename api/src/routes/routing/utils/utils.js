@@ -8,8 +8,8 @@ const getAllFromApi = async ()=>{
     let games =[]
     while (count<5){
         const fetch = await axios.get(url);
-        url = await fetch.data.next;
-        await fetch.data.results.forEach(p=>{
+        url = fetch.data.next;
+        fetch.data.results.forEach(p=>{
             games.push({
                 id:p.id,
                 name:p.name,
@@ -29,8 +29,7 @@ const getAllFromApi = async ()=>{
     return games
 }
 const getAllFromDb = async ()=>{
-    const dbData = await Videogame.findAll({include:Genre});
-    console.log(dbData)
+    const dbData = await Videogame.findAll({include:Genre});    
     const data = dbData.map(p=>{
         let videogame ={
             id: p.dataValues.id,
@@ -48,20 +47,78 @@ const getAllFromDb = async ()=>{
     })
     return data
 }
+const getSomeFromApi = async (name)=>{
+    let gamesArray = [];
+    const fetch = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${process.env.API_KEY}`);
+    for(let i=0;i<=14;i++){
+        let current = fetch.data.results[i]
+        gamesArray.push({
+            id: current.id,
+            name: current.name,
+            image: current.background_image,
+            rating:current.rating,
+            genre: current.genres,            
+        })        
+    }
+    return gamesArray
+}
+
 const getAll = async ()=>{    
     const api = await getAllFromApi();
     const db = await getAllFromDb()
     if (db.length>0){
         return [...api,...db]
     }
-    else return api
+    else {
+        return api
+    }
 };
 
 const getSome = async (name)=>{
-
+    const api = await getSomeFromApi(name);
+    return api;
 };
-const getOne = async (id)=>{
-
+const getOneDb = async (id)=>{
+    const db = await Videogame.findOne({
+        include:Genre,
+        where: {
+            id:id,
+        }
+    })
+    let game = db.dataValues
+    return {
+        name: game.name,
+        image: game.image,
+        genres: game.genres.map(p=>{
+            return{
+                id: p.id,
+                name: p.name,
+            }
+        }),
+        description: game.description,
+        released: game.released,
+        rating: game.rating,
+        platforms: game.platforms
+    }
+}
+const getOneApi = async (id)=>{
+    const api = await axios.get(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`);
+    const game = api.data
+    return{
+        name: game.name,
+        image: game.background_image,
+        genres: game.genres.map(p=>{
+            return{
+                id: p.id,
+                name: p.name,
+                image: p.image,
+            }
+        }),
+        description: game.description_raw,
+        released: game.released,
+        rating: game.rating,
+        platforms:game.platforms.map(p=>p.platform.name),
+    }
 };
 const getGenres =  ()=>{
     const genres = axios.get(`https://api.rawg.io/api/genres?key=6c956f38e02d447bad5b2ff554b6f93b`) 
@@ -103,7 +160,8 @@ const postVid = async (name,description,released,rating,genre,platforms,image)=>
 module.exports={
     getAll,
     getSome,
-    getOne,
+    getOneApi,
+    getOneDb,
     getGenres,
     postVid,
 }

@@ -1,13 +1,16 @@
-// const { Router } = require('express');
-// const app = Router();
-// const { getOne } = require('./utils/utils.js')
+const { Router } = require('express');
+const app = Router();
+const { getOneApi , getOneDb } = require('./utils/utils.js')
 
-// app.get('/:idVideogame',async(req,res,next)=>{
-//     try{
-//         const {idVideogame} = req.params;
-//         res.status(200).json(getOne(idVideogame));
-//     } catch (error){
-//         next(error)
-//     }
-// })
-// module.exports= app
+app.get('/:idVideogame',async(req,res,next)=>{
+    try{
+        const {idVideogame} = req.params;
+        if (parseInt(idVideogame)){
+            res.status(200).json(await getOneApi(idVideogame))
+        }
+        else res.status(200).json(await getOneDb(idVideogame))
+    } catch (error){
+        next(error)
+    }
+})
+module.exports= app
