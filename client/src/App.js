@@ -14,7 +14,7 @@ function App() {
     <Route exact path = '/' component={Welcome}/>
     {location.pathname !== '/' ? <Nav/> : null}
     <Route path='/home' component={Home}/>
-    <Route path='/detail' component={Detail}/>
+    <Route path='/detail/:id' component={Detail}/>
     <Route path='/form' component={Form}/>
 
     

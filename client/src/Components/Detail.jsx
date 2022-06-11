@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { exitDetail } from "../Redux/Actions";
+import { useParams } from "react-router-dom";
+import { exitDetail, getOne } from "../Redux/Actions";
 
 export default function Detail (){
     let state = useSelector(state=>state.gameDetail);
     const [dataLoaded,setDataLoaded] = useState(false);
+    const { id } = useParams()
     const dispatch = useDispatch()
+
+
     useEffect(()=>{
-       if (state.name) setDataLoaded(true)         
+        if (!state.name) dispatch(getOne(id))
+        else setDataLoaded(true)         
     },[state])
     //componentWillUnmount↓
     useEffect(()=>{
