@@ -13,7 +13,7 @@ function App() {
     <div className="App">
     <Route exact path = '/' component={Welcome}/>
     {location.pathname !== '/' ? <Nav/> : null}
-    <Route path='/home' component={Home}/>
+    <Route path='/home/' component={Home}/>
     <Route path='/detail/:id' component={Detail}/>
     <Route path='/form' component={Form}/>
 

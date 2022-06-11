@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL , GET_GENRES , GET_ONE , PAGINATE , POST_NEW , GET_SOME } from './types/ActionTypes.js'
+import { GET_ALL , GET_GENRES , GET_ONE , PAGINATE , POST_NEW , GET_SOME , EXIT_SEARCH } from './types/ActionTypes.js'
 
 
 export const getAll = ()=>{
@@ -73,6 +73,11 @@ export const postNew = (name,description,released,rating,genre,platforms,image)=
 export const exitDetail = ()=>{
     return {
         type:'EXIT_DETAIL'
+    }
+}
+export const exitSearch = ()=>{
+    return{
+        type:EXIT_SEARCH,
     }
 }
 export const paginate = (pageNumber)=>{

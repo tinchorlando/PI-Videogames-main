@@ -2,35 +2,54 @@ import { useEffect, useState } from "react";
 import { useDispatch , useSelector } from "react-redux";
 import { getAll } from "../Redux/Actions.js";
 import Card from './Card.jsx';
+import SearchBar from "./SearchBar.jsx";
+import CardHolder from "./CardHolder.jsx";
 
 export default function Home (){
-    
+    const [videogames,setVideogames]=useState({list:[],key:''});
     const [dataLoaded,setDataLoaded] = useState(false);
+    const [currentPage,setCurrentPage]=useState(1);
+    
     const state = useSelector(store=>store);
     const dispatch = useDispatch();
+    
+
+    //para carga de videojuegos ↓
+    useEffect(()=>{
+        if (!videogames.length) dispatch(getAll())
+            setVideogames({
+                list:[...state.videogames],
+                key:'list'
+            });
+            setDataLoaded(true);
+    },[]);
 
     
     useEffect(()=>{
-        if (!state.videogames.length) dispatch(getAll())
-        if(state.videogames.length) setDataLoaded(true)
+        if (state.filteredGames.length){
+            setVideogames({
+                list:[...state.filteredGames],
+                key:'filtered'
+            });
+        }
+        else if(state.searchedGames.length){
+            setVideogames({
+                list:[...state.searchedGames],
+                key:'searched'
+            });           
+        }
+        else {
+            setVideogames({
+                list:[...state.videogames],
+                key:'list'
+            });
+        }
+    },[state.videogames,state.filteredGames,state.searchedGames]);
 
-    },[state.videogames])
 
-
-    let mapCard = (p)=>{
-        return(
-            <Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>
-        )
-
-    }
     return(
         <div>
-            <h1>Videogames Proyect</h1>
-            {
-                state.searchedGames.length ? state.searchedGames.map(mapCard) :
-                dataLoaded ?
-                state.videogames.map(mapCard) : '...Loading'
-            }            
+            <CardHolder videogames={videogames} loaded={dataLoaded} />
         </div>
     )
 }

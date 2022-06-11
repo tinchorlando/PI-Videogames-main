@@ -1,8 +1,9 @@
-const { GET_ALL , GET_GENRES , GET_ONE , PAGINATE , POST_NEW , GET_SOME , EXIT_DETAIL } = require('./types/ActionTypes.js');
+const { GET_ALL , GET_GENRES , GET_ONE , PAGINATE , POST_NEW , GET_SOME , EXIT_DETAIL, EXIT_SEARCH } = require('./types/ActionTypes.js');
 
 const initialState = {
     videogames: [],
     searchedGames: [],
+    keyword:'',
     gameDetail: {},
     page: [],
     genres: [],
@@ -24,7 +25,7 @@ const rootReducer = (state = initialState , action)=>{
         case GET_SOME:
             return{
                 ...state,
-                filteredGames:action.payload,
+                searchedGames:action.payload,
             }
         case GET_GENRES:
             return{
@@ -43,6 +44,11 @@ const rootReducer = (state = initialState , action)=>{
             return{
                 ...state,
                 gameDetail:{}
+            }
+        case EXIT_SEARCH:
+            return{
+                ...state,
+                searchedGames:[]
             }
         default:
             return state
