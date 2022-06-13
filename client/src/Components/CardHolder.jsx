@@ -1,7 +1,7 @@
 import Card from "./Card"
 import SearchBar from "./SearchBar"
 
-export default function CardHolder({ videogames , loaded }){
+export default function CardHolder({ videogames , currentGames , loaded }){
     if (loaded){
         return(
             <div>
@@ -14,14 +14,14 @@ export default function CardHolder({ videogames , loaded }){
                     <div>
                         <h2>Search results:</h2>                        
                         {
-                            videogames.list.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
+                            currentGames.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
                         }    
                     </div>
                     ) :(
                     <div>
                         <h2>Games:</h2>
                         {
-                            videogames.list.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
+                            currentGames.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
                         }
                     </div>
                     )

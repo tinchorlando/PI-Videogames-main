@@ -8,8 +8,9 @@ export default function Card (props){
                 <ul>
                     {
                         props.genre.map(p=>{
+                            
                             return(
-                                <li>{p.name}</li>
+                                <li key={p.id}>{p.name}</li>
                             )
                         })
                     }
