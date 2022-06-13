@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL , GET_GENRES , GET_ONE , PAGINATE , POST_NEW , GET_SOME , EXIT_SEARCH } from './types/ActionTypes.js'
+import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH } from './types/ActionTypes.js'
 
 
 export const getAll = ()=>{
@@ -80,9 +80,10 @@ export const exitSearch = ()=>{
         type:EXIT_SEARCH,
     }
 }
-export const paginate = (pageNumber)=>{
+export const saveSearch = (searchName)=>{
     return{
-        type:PAGINATE,
-        payload:pageNumber,
+        type:SAVE_SEARCH,
+        payload:searchName,
     }
 }
+

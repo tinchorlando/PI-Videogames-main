@@ -1,7 +1,7 @@
 import Card from "./Card"
 import SearchBar from "./SearchBar"
 
-export default function CardHolder({ videogames , currentGames , loaded }){
+export default function CardHolder({ videogames , currentGames , loaded , searchedGame , endSearch}){
     if (loaded){
         return(
             <div>
@@ -12,7 +12,7 @@ export default function CardHolder({ videogames , currentGames , loaded }){
                 {
                     videogames.key === 'searched' ? (
                     <div>
-                        <h2>Search results:</h2>                        
+                        <h2>Search results for {searchedGame}:</h2> <button onClick={endSearch}> Close search</button>                       
                         {
                             currentGames.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
                         }    

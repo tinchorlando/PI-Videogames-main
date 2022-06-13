@@ -1,11 +1,10 @@
-const { GET_ALL , GET_GENRES , GET_ONE , PAGINATE , POST_NEW , GET_SOME , EXIT_DETAIL, EXIT_SEARCH } = require('./types/ActionTypes.js');
+const { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_DETAIL, EXIT_SEARCH } = require('./types/ActionTypes.js');
 
 const initialState = {
     videogames: [],
     searchedGames: [],
-    keyword:'',
+    searchedName:'',
     gameDetail: {},
-    page: [],
     genres: [],
     filteredGames:[],
 }
@@ -36,10 +35,6 @@ const rootReducer = (state = initialState , action)=>{
             if (action.payload === 'Created') return 'Success!'
             else return 'Failed!'
             ;
-        case PAGINATE:
-            return {
-
-            };
         case EXIT_DETAIL:
             return{
                 ...state,
@@ -49,6 +44,11 @@ const rootReducer = (state = initialState , action)=>{
             return{
                 ...state,
                 searchedGames:[]
+            }
+        case SAVE_SEARCH:
+            return{
+                ...state,
+                searchedName:action.payload,
             }
         default:
             return state

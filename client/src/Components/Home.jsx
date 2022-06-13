@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch , useSelector } from "react-redux";
-import { getAll } from "../Redux/Actions.js";
+import { getAll , exitSearch } from "../Redux/Actions.js";
 import  Pagination from './Pagination.jsx'
 import CardHolder from "./CardHolder.jsx";
 
@@ -23,8 +23,8 @@ export default function Home (){
         if (state.videogames.length) setDataLoaded(true);
     },[state.videogames]);
 
-    
     useEffect(()=>{
+        //data selector ↓
         if (state.filteredGames.length){
             setVideogames({
                 list:[...state.filteredGames],
@@ -45,17 +45,22 @@ export default function Home (){
         }
     },[state.videogames,state.filteredGames,state.searchedGames]);
     
+    //pagination ↓
     const lastIndex = currentPage * 15;
     const startIndex = lastIndex - 15;
     const currentGames = videogames.list.slice(startIndex,lastIndex)
 
     const paginate = (pageNumber)=> setCurrentPage(pageNumber);
 
+    //close Search
+    const endSearch = ()=>{
+        dispatch(exitSearch())
+    }
     return(
         <div>            
-            <CardHolder videogames={videogames} currentGames={currentGames} loaded={dataLoaded} />
+            <CardHolder videogames={videogames} currentGames={currentGames} loaded={dataLoaded} searchedGame={state.searchedName} endSearch={endSearch}/>
             <Pagination totalGames={videogames.list.length} paginate={paginate}/>
-            {/* <Pagination totalGames={1} paginate={paginate}/> */}
+            
         </div>
     )
 }
