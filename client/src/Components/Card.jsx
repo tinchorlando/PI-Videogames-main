@@ -7,10 +7,10 @@ export default function Card (props){
                 <img src={props.image} alt={`${props.name}'s foto`}/>
                 <ul>
                     {
-                        props.genre.map(p=>{
+                        props.genres.map(p=>{
                             
                             return(
-                                <li key={p.id}>{p.name}</li>
+                                <li key={p}>{p}</li>
                             )
                         })
                     }

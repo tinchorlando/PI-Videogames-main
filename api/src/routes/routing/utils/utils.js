@@ -15,13 +15,7 @@ const getAllFromApi = async ()=>{
                 name:p.name,
                 image:p.background_image,
                 rating:p.rating,
-                genre:p.genres.map(q=>{
-                    return {
-                        id:q.id,
-                        name:q.name,
-                        image:q.image_background,
-                    }
-                }),
+                genres:p.genres.map(q=>q.name),
             })
         })        
         count++;
@@ -36,31 +30,25 @@ const getAllFromDb = async ()=>{
             name: p.dataValues.name,
             image: p.dataValues.image,
             rating: p.dataValues.rating,
-            genre: p.dataValues.genres.map(q=>{
-                return{
-                    id:q.id,
-                    name:q.name
-                }
-            }),
+            genres: p.dataValues.genres.map(q=>q.name),
         }
         return videogame
     })
     return data
 }
-const getSomeFromApi = async (name)=>{
-    let gamesArray = [];
+
+const getSome = async (name)=>{
     const fetch = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${process.env.API_KEY}`);
-    for(let i=0;i<=14;i++){
-        let current = fetch.data.results[i]
-        gamesArray.push({
-            id: current.id,
-            name: current.name,
-            image: current.background_image,
-            rating:current.rating,
-            genre: current.genres,            
-        })        
-    }
-    return gamesArray
+    const games = fetch.data.results.map(game=>{
+        return {
+            id: game.id,
+            name: game.name,
+            image: game.background_image,
+            rating: game.rating,
+            genres: game.genres.map(p=>p.name),
+        }
+    })
+    return games.slice(0,15)
 }
 
 const getAll = async ()=>{    
@@ -74,10 +62,6 @@ const getAll = async ()=>{
     }
 };
 
-const getSome = async (name)=>{
-    const api = await getSomeFromApi(name);
-    return api;
-};
 const getOneDb = async (id)=>{
     const db = await Videogame.findOne({
         include:Genre,

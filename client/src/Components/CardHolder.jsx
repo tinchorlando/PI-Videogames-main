@@ -3,7 +3,7 @@ import Filter from "./Filter"
 import SearchBar from "./SearchBar"
 
 export default function CardHolder({ videogames , currentGames , loaded , searchedGame , endSearch}){
-    const mapCard = (p=>(<Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>))
+    const mapCard = (p=>(<Card key={p.id} id={p.id} name={p.name} image={p.image}  genres={p.genres}/>))
 
     if (loaded){
         return(
