@@ -15,7 +15,7 @@ const [games,setGames]=useState([])
 const dispatch = useDispatch()
 
 useEffect(()=>{
-    setGames([...videogames])
+    setGames([...videogames]) //tomo copia del valor pasado por props
 },[])
 
 const handleChange = (event)=>{    
@@ -38,6 +38,7 @@ const handleChange = (event)=>{
     // })))
 }
 useEffect(()=>{
+    //al filtrar copia puedo recuperar al eliminar filtros
     dispatch(filtered(games.filter(p=>{
         let match;
         for (let i=0;i<genreFilter.length;i++){
