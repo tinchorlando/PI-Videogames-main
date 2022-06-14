@@ -32,7 +32,7 @@ export default function Detail (){
                         {
                             state.genres.map(p=>{
                                 return(
-                                    <li>{p.name}</li>
+                                    <li key={p.id}>{p.name}</li>
                                 )
                             })
                         }

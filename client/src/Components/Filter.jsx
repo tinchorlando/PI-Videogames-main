@@ -11,22 +11,46 @@ const [storeFiltered, storeGenres] = useSelector((store) => [
 ]);
 const [toggleBar,setToggleBar] = useState(false)
 const [genreFilter,setGenreFilter] = useState([])
-const [games,setGames]=useState(videogames)
+const [games,setGames]=useState([])
 const dispatch = useDispatch()
 
+useEffect(()=>{
+    setGames([...videogames])
+},[])
 
-
-const handleChange = (event)=>{
-    
+const handleChange = (event)=>{    
     if (event.target.checked){
         setGenreFilter([...genreFilter,event.target.value])
     }
     if (!event.target.checked){
         setGenreFilter(genreFilter.filter(p=>p!==event.target.value))
-    }
-    
+    }    
 
+    // dispatch(filtered(games.filter(p=>{
+    //     let match;
+    //     for (let i=0;i<genreFilter.length;i++){
+    //         match=true;
+    //         if(!p.genres.includes(genreFilter[i])) {
+    //             match=false;
+    //         }
+    //     }
+    //     if (match===true) return p
+    // })))
 }
+useEffect(()=>{
+    dispatch(filtered(games.filter(p=>{
+        let match;
+        for (let i=0;i<genreFilter.length;i++){
+            match=true;
+            if(!p.genres.includes(genreFilter[i])) {
+                match=false;
+                break;
+            }
+        }
+        if (match===true) return p
+    })))
+},[genreFilter])
+
 const toggle = ()=>{
     toggleBar ? setToggleBar(false) : setToggleBar(true)
 };
@@ -45,7 +69,7 @@ return(
                             {
                                 storeGenres.map(p=>
                                 <li key={p.id}>
-                                    {p.name}<input type='checkbox' className="genreCheckbox" value={p.id} onChange={handleChange}></input>
+                                    {p.name}<input type='checkbox' className="genreCheckbox" value={p.name} onChange={handleChange}></input>
                                 </li>
                                 )
                             }
