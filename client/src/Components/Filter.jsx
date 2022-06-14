@@ -24,20 +24,7 @@ const handleChange = (event)=>{
     if (!event.target.checked){
         setGenreFilter(genreFilter.filter(p=>p!==event.target.value))
     }
-    let idArray = games.map(p=>{
-        let arr =[]
-        for(let i=0;i<p.genre.length;i++){
-            if (genreFilter.includes(p.genre[i].id)){
-                arr.push(p.id);
-                break;
-            }
-        }
-        console.log('arr: ',arr)
-        return arr
-    })
-    console.log('idArr: ',idArray)
-    setGames(games.filter(p=>idArray.includes(p.id)))
-    console.log(games)
+    
 
 }
 const toggle = ()=>{
