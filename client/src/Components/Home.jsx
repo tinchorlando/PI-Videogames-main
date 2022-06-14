@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch , useSelector } from "react-redux";
-import { getAll , exitSearch } from "../Redux/Actions.js";
+import { getAll , exitSearch , getGenres } from "../Redux/Actions.js";
 import  Pagination from './Pagination.jsx'
 import CardHolder from "./CardHolder.jsx";
 
@@ -9,41 +9,50 @@ export default function Home (){
     const [dataLoaded,setDataLoaded] = useState(false);
     const [currentPage,setCurrentPage]=useState(1);
     
-    const state = useSelector(store=>store);
+    const [storeGames, storeFiltered, storeSearched, searchedName] =
+      useSelector((store) => [
+        store.videogames,
+        store.filteredGames,
+        store.searchedGames,
+        store.searchedName,
+      ]);
     const dispatch = useDispatch();
     
 
     //initial games loading
-    useEffect(()=>{
-        if (!state.videogames.length) dispatch(getAll())
+    useEffect(() => {
+      if (!storeGames.length) {
+        dispatch(getAll());
+        dispatch(getGenres());
+      }
+      if (storeGames.length) {
         setVideogames({
-                list:[...state.videogames],
-                key:'list'
-            });
-        if (state.videogames.length) setDataLoaded(true);
-    },[state.videogames]);
+          list: [...storeGames],
+          key: "list",
+        });
+        setDataLoaded(true);
+      }
+    }, [storeGames]);
 
-    useEffect(()=>{
-        //data selector ↓
-        if (state.filteredGames.length){
-            setVideogames({
-                list:[...state.filteredGames],
-                key:'filtered'
-            });
-        }
-        else if(state.searchedGames.length){
-            setVideogames({
-                list:[...state.searchedGames],
-                key:'searched'
-            });           
-        }
-        else {
-            setVideogames({
-                list:[...state.videogames],
-                key:'list'
-            });
-        }
-    },[state.videogames,state.filteredGames,state.searchedGames]);
+    useEffect(() => {
+      //data selector ↓
+      if (storeFiltered.length) {
+        setVideogames({
+          list: [...storeFiltered],
+          key: "filtered",
+        });
+      } else if (storeSearched.length) {
+        setVideogames({
+          list: [...storeSearched],
+          key: "searched",
+        });
+      } else {
+        setVideogames({
+          list: [...storeGames],
+          key: "list",
+        });
+      }
+    }, [storeGames, storeFiltered, storeSearched]);
     
     //pagination ↓
     const lastIndex = currentPage * 15;
@@ -56,11 +65,16 @@ export default function Home (){
     const endSearch = ()=>{
         dispatch(exitSearch())
     }
-    return(
-        <div>            
-            <CardHolder videogames={videogames} currentGames={currentGames} loaded={dataLoaded} searchedGame={state.searchedName} endSearch={endSearch}/>
-            <Pagination totalGames={videogames.list.length} paginate={paginate}/>
-            
-        </div>
-    )
+    return (
+      <div>
+        <CardHolder
+          videogames={videogames}
+          currentGames={currentGames}
+          loaded={dataLoaded}
+          searchedGame={searchedName}
+          endSearch={endSearch}
+        />
+        <Pagination totalGames={videogames.list.length} paginate={paginate} />
+      </div>
+    );
 }

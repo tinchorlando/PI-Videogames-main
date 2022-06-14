@@ -1,12 +1,16 @@
 import Card from "./Card"
+import Filter from "./Filter"
 import SearchBar from "./SearchBar"
 
 export default function CardHolder({ videogames , currentGames , loaded , searchedGame , endSearch}){
+    const mapCard = (p=>(<Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>))
+
     if (loaded){
         return(
             <div>
                 <div>
-                    <span>filter 1</span> <span> filter 2 </span> <span>filter 3</span><SearchBar/>
+                    <Filter videogames={videogames.list}/>
+                    <SearchBar/>
                 </div>
                 
                 {
@@ -14,14 +18,14 @@ export default function CardHolder({ videogames , currentGames , loaded , search
                     <div>
                         <h2>Search results for {searchedGame}:</h2> <button onClick={endSearch}> Close search</button>                       
                         {
-                            currentGames.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
+                            currentGames.map(mapCard)
                         }    
                     </div>
                     ) :(
                     <div>
                         <h2>Games:</h2>
                         {
-                            currentGames.map(p=><Card key={p.id} id={p.id} name={p.name} image={p.image}  genre={p.genre}/>)
+                            currentGames.map(mapCard)
                         }
                     </div>
                     )

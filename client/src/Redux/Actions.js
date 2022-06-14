@@ -86,4 +86,10 @@ export const saveSearch = (searchName)=>{
         payload:searchName,
     }
 }
+export const filtered = (array)=>{
+    return{
+        type:'FILTER',
+        payload:array,
+    }
+}
 

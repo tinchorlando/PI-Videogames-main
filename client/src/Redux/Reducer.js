@@ -50,6 +50,11 @@ const rootReducer = (state = initialState , action)=>{
                 ...state,
                 searchedName:action.payload,
             }
+        case 'FILTER':
+            return{
+                ...state,
+                filteredGames:action.payload
+            }
         default:
             return state
     }
