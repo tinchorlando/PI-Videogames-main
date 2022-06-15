@@ -15,7 +15,6 @@ const [toggleBar,setToggleBar] = useState(false);
 const [toggleFilters,setToggleFilters] = useState(false);
 const [toggleOrder,setToggleOrder] = useState(false);
 const [genreFilter,setGenreFilter] = useState([]);
-const [originFilter,setOriginFilter] = useState([]);
 const [order,setOrder] = useState([]);
 const [games,setGames]=useState([]);
 const dispatch = useDispatch();
@@ -51,6 +50,14 @@ useEffect(()=>{
             let match;
             for (let i=0;i<genreFilter.length;i++){
                 match=true;
+                if(genreFilter[i]==='api'){
+                    let regexp = /.*[a-zA-Z].*/;
+                    if(!regexp.test(p.id)) return p
+                }
+                if(genreFilter[i]==='dataBase'){
+                    let regexp = /.*[a-zA-Z].*/;
+                    if(regexp.test(p.id)) return p
+                }
                 if(!p.genres.includes(genreFilter[i])) {
                     match=false;
                     break;
@@ -63,23 +70,6 @@ useEffect(()=>{
         dispatch(exitFilters())
     }
 },[genreFilter])
-
-const handleOriginChange = (event)=>{
-    const regexp = /.*[a-zA-Z].*/
-    if (event.target.value === 'api'){
-        setOriginFilter(games.filter(
-            p=>!regexp.test(p.id)
-        ))
-    }
-    if (event.target.value === 'dataBase'){
-        setOriginFilter(games.filter(
-            p=>regexp.test(p.id)
-        ))
-    }
-}
-useEffect(()=>{
-    if (originFilter.length) dispatch(filterOrigin(originFilter))
-},[originFilter])
 
 const handleOrderChange = (event) => {
     let fil =[]
@@ -139,8 +129,8 @@ return(
                         </div>
                         <button className="collapsible">Data origin</button>
                             <div className="content">
-                                <input type='checkbox' className='originInput' name='origin' value='api' onChange={handleOriginChange}></input>Api
-                                <input type='checkbox' className='originInput' name='origin' value='dataBase' onChange={handleOriginChange}></input>Database
+                                <input type='checkbox' className='originInput' name='origin' value='api' onChange={handleFilterChange}></input>Api
+                                <input type='checkbox' className='originInput' name='origin' value='dataBase' onChange={handleFilterChange}></input>Database
                             </div>
                                                         
                     </div>
