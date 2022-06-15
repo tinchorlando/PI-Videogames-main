@@ -1,94 +1,166 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { filtered } from "../Redux/Actions";
+import { exitFilters, filtered, orderSort , filterOrigin} from "../Redux/Actions";
 
 
 
-export default function Filter ({videogames}){
-const [storeFiltered, storeGenres] = useSelector((store) => [
+export default function Filter (){
+let [storeFiltered, storeGenres, storeVideogames , storeSearched] = useSelector((store) => [
   store.filteredGames,
   store.genres,
+  store.videogames,
+  store.searchedGames,
 ]);
-const [toggleBar,setToggleBar] = useState(false)
-const [genreFilter,setGenreFilter] = useState([])
-const [games,setGames]=useState([])
-const dispatch = useDispatch()
+const [toggleBar,setToggleBar] = useState(false);
+const [toggleFilters,setToggleFilters] = useState(false);
+const [toggleOrder,setToggleOrder] = useState(false);
+const [genreFilter,setGenreFilter] = useState([]);
+const [originFilter,setOriginFilter] = useState([]);
+const [order,setOrder] = useState([]);
+const [games,setGames]=useState([]);
+const dispatch = useDispatch();
+
+const toggle = ()=>{
+    toggleBar ? setToggleBar(false) : setToggleBar(true)
+};
+const showFilters = ()=>{
+    toggleFilters ? setToggleFilters(false) : setToggleFilters(true)
+}
+const showOrdering = ()=>{
+    toggleOrder ? setToggleOrder(false) : setToggleOrder(true)
+}
 
 useEffect(()=>{
-    setGames([...videogames]) //tomo copia del valor pasado por props
-},[])
+    if (storeSearched.length) setGames([...storeSearched])
+    else setGames([...storeVideogames])
+},[storeSearched])
 
-const handleChange = (event)=>{    
+const handleFilterChange = (event)=>{    
     if (event.target.checked){
         setGenreFilter([...genreFilter,event.target.value])
     }
     if (!event.target.checked){
         setGenreFilter(genreFilter.filter(p=>p!==event.target.value))
     }    
-
-    // dispatch(filtered(games.filter(p=>{
-    //     let match;
-    //     for (let i=0;i<genreFilter.length;i++){
-    //         match=true;
-    //         if(!p.genres.includes(genreFilter[i])) {
-    //             match=false;
-    //         }
-    //     }
-    //     if (match===true) return p
-    // })))
 }
+
 useEffect(()=>{
     //al filtrar copia puedo recuperar al eliminar filtros
-    dispatch(filtered(games.filter(p=>{
-        let match;
-        for (let i=0;i<genreFilter.length;i++){
-            match=true;
-            if(!p.genres.includes(genreFilter[i])) {
-                match=false;
-                break;
+    if (genreFilter.length){
+        dispatch(filtered(games.filter(p=>{
+            let match;
+            for (let i=0;i<genreFilter.length;i++){
+                match=true;
+                if(!p.genres.includes(genreFilter[i])) {
+                    match=false;
+                    break;
+                }
             }
-        }
-        if (match===true) return p
-    })))
+            if (match===true) return p
+        })))
+    }
+    else {
+        dispatch(exitFilters())
+    }
 },[genreFilter])
 
-const toggle = ()=>{
-    toggleBar ? setToggleBar(false) : setToggleBar(true)
-};
-
+const handleOriginChange = (event)=>{
+    const regexp = /.*[a-zA-Z].*/
+    if (event.target.value === 'api'){
+        setOriginFilter(games.filter(
+            p=>!regexp.test(p.id)
+        ))
+    }
+    if (event.target.value === 'dataBase'){
+        setOriginFilter(games.filter(
+            p=>regexp.test(p.id)
+        ))
+    }
+}
 useEffect(()=>{
+    if (originFilter.length) dispatch(filterOrigin(originFilter))
+},[originFilter])
 
-},)
+const handleOrderChange = (event) => {
+    let fil =[]
+    if (storeFiltered.length) fil =[...storeFiltered];
+    else {fil = [...games]};
+    if (event.target.value === "alphInc") {
+        fil.sort((a, b) => {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+            if (b.name.toLowerCase() > a.name.toLowerCase()) return -1;
+            return 0;
+        });
+    };
+    if (event.target.value==='alphDec'){
+        fil.sort((a,b)=>{
+            if (b.name.toLowerCase() > a.name.toLowerCase()) return 1;
+            if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
+            return 0;
+        })
+        
+    }
+    if (event.target.value === 'ratInc'){
+        fil.sort((a,b)=>{
+           return a.rating-b.rating
+        })        
+    }
+    if (event.target.value === 'ratDec'){
+        fil.sort((a,b)=>{
+            return b.rating-a.rating
+        })
+    }
+    setOrder(fil);
+};
+useEffect(()=>{   
+    if (order.length) dispatch(orderSort(order))        
+},[order])
+
+
 return(
     <div>
         <img src='https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg' alt='filter' onClick={toggle}/>
         {
             toggleBar ? (<nav>
-                <button className="collapsible">Genre Filters</button>
-                    <div className="content">
-                        <ul>
-                            {
-                                storeGenres.map(p=>
-                                <li key={p.id}>
-                                    {p.name}<input type='checkbox' className="genreCheckbox" value={p.name} onChange={handleChange}></input>
-                                </li>
-                                )
-                            }
-                        </ul>
+                <button className="collapsible" onClick={showFilters}>Filters</button>
+                {
+                toggleFilters ? (
+                    <div className='filters'>
+                        <div className="content">
+                            <ul>
+                                {
+                                    storeGenres.map(p=>
+                                    <li key={p.id}>
+                                        {p.name}<input type='checkbox' className="genreCheckbox" value={p.name} onChange={handleFilterChange}></input>
+                                    </li>
+                                    )
+                                }
+                            </ul>
+                        </div>
+                        <button className="collapsible">Data origin</button>
+                            <div className="content">
+                                <input type='checkbox' className='originInput' name='origin' value='api' onChange={handleOriginChange}></input>Api
+                                <input type='checkbox' className='originInput' name='origin' value='dataBase' onChange={handleOriginChange}></input>Database
+                            </div>
+                                                        
                     </div>
-                <button className="collapsible">Api or DB</button>
+                    ) : null
+                    }
+                
+                <button className="collapsible" onClick={showOrdering}>order</button>
+                {toggleOrder ? 
+                (
                     <div className="content">
+                        <input type='radio' className=  'orderInput' name='orderInput' value='alphInc' onChange={handleOrderChange}></input>alphabetical incremental
+                        <input type='radio'  className= 'orderInput' name='orderInput' value='alphDec' onChange={handleOrderChange}></input>alphabetical decremental
+                        <input type='radio' className=  'orderInput' name='orderInput' value='ratDec' onChange={handleOrderChange}></input>Rating decremental
+                        <input type='radio'  className= 'orderInput' name='orderInput' value='ratInc' onChange={handleOrderChange}></input>Rating incremental
 
-                    </div>
-                <button className="collapsible">alfabetic</button>
-                    <div className="content">
-
-                    </div>
-                <button className="collapsible">Rating</button>
-                    <div className="content">
-
-                    </div>
-                </nav>  ) : null
+                    </div>                
+                ) : null}
+                    
+                </nav>  
+                ) : null
         }
         
     </div>

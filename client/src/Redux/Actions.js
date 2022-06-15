@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH } from './types/ActionTypes.js'
+import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , FILTER_ORIGIN} from './types/ActionTypes.js'
 
 
 export const getAll = ()=>{
@@ -72,7 +72,7 @@ export const postNew = (name,description,released,rating,genre,platforms,image)=
 }
 export const exitDetail = ()=>{
     return {
-        type:'EXIT_DETAIL'
+        type:EXIT_DETAIL,
     }
 }
 export const exitSearch = ()=>{
@@ -88,8 +88,24 @@ export const saveSearch = (searchName)=>{
 }
 export const filtered = (array)=>{
     return{
-        type:'FILTER',
+        type:FILTER_GENRE,
         payload:array,
     }
 }
-
+export const exitFilters = ()=>{
+    return{
+        type:EXIT_FILTER
+    }
+}
+export const orderSort = (filteredArray)=>{
+    return{
+        type:FILTER_ORDER,
+        payload:filteredArray,
+    }
+}
+export const filterOrigin=(filteredArray)=>{
+    return{
+        type:FILTER_ORIGIN,
+        payload:filteredArray
+    }
+}

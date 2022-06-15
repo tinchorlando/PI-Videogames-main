@@ -9,12 +9,13 @@ export default function Home (){
     const [dataLoaded,setDataLoaded] = useState(false);
     const [currentPage,setCurrentPage]=useState(1);
     
-    const [storeGames, storeFiltered, storeSearched, searchedName] =
+    const [storeGames, storeFiltered, storeSearched, searchedName, notFound] =
       useSelector((store) => [
         store.videogames,
         store.filteredGames,
         store.searchedGames,
         store.searchedName,
+        store.notFound
       ]);
     const dispatch = useDispatch();
     
@@ -41,7 +42,7 @@ export default function Home (){
           list: [...storeFiltered],
           key: "filtered",
         });
-      } else if (storeSearched.length) {
+      } else if (storeSearched.length || searchedName) {
         setVideogames({
           list: [...storeSearched],
           key: "searched",
@@ -52,7 +53,8 @@ export default function Home (){
           key: "list",
         });
       }
-    }, [storeGames, storeFiltered, storeSearched]);
+      
+    }, [storeGames, storeFiltered, storeSearched , searchedName,videogames.key]);
     
     //pagination ↓
     const lastIndex = currentPage * 15;
@@ -73,6 +75,7 @@ export default function Home (){
           loaded={dataLoaded}
           searchedGame={searchedName}
           endSearch={endSearch}
+          notFound={notFound}
         />
         <Pagination totalGames={videogames.list.length} paginate={paginate} />
       </div>

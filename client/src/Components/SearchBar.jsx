@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getSome , saveSearch } from "../Redux/Actions";
+import { exitFilters, getSome , saveSearch } from "../Redux/Actions";
 
 
 export default function SearchBar (){
@@ -16,6 +16,7 @@ export default function SearchBar (){
     };
     const handleSubmit = (event)=>{
         event.preventDefault()
+        dispatch(exitFilters())
         dispatch(saveSearch(input.searchBar))
         dispatch(getSome(input.searchBar))
         setInput({
