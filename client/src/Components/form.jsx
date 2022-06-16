@@ -11,7 +11,8 @@ export default function Form (){
     const [game,setGame] = useState({});
     const [errors,setErrors] = useState({});
     const [genres,setGenres] = useState([]);
-    const [platforms,setPlatforms] = useState([])
+    const [showGenres,setShowGenres] = useState(false);
+    const [platforms,setplatforms] = useState([])
 
     useEffect(()=>{
         if (storeGenres.length && !created) setLoaded(true);
@@ -19,13 +20,43 @@ export default function Form (){
             if (!storeGenres.length) dispatch(getGenres());
             if (created) dispatch(resetPost());
         }
-    },[storeGenres]);
+    },[storeGenres]);    
 
-    const handleChange = (event)=>{
+    const validation = (data) =>{
+        let errors ={};
+        
+        if(!data.name) errors.name='Submit a name';
+
+        if(!data.platforms) errors.platforms='Submit at least one platform';
+
+        if(!data.description) errors.description='Submit a description';
+
+        if(data.rating) {
+            if (!/^\d*(\.\d+)?$/.test(data.rating)) errors.rating='Submit a valid rating';
+            if (data.rating<1 || data.rating>5) errors.rating='Must be between 0 and 5'
+        }
+
+        if(data.released){
+            //validacion formato fecha YYYYMMDD y fecha valida
+            errors.released='error'
+        }
+        if(!data.image) {
+            //validacion para que sea imagen
+            errors.image='error'
+        }
+        
+        return errors
+    }
+    const handleChange = (event)=>{        
         setGame({
             ...game,
             [event.target.name]:event.target.value,
         })
+
+    }
+    const handleGenreChange = (event)=>{        
+        if (event.target.checked) setGenres([...genres,event.target.value])
+        else setGenres(genres.filter(p=>p!==event.target.value))
     }
     const platformPrep = ()=>{
         let prePlat = game.platforms;
@@ -38,33 +69,26 @@ export default function Form (){
         } else platforms.push(prePlat)
         return platforms
     }
-    const deleteGenre = (id)=>{
-        setGenres(genres.filter(p=>p!==id))
+    const platSetting = ()=>{
+        if (game.platforms){
+            let inputPlat = platformPrep();
+            setplatforms(inputPlat);
+        }
     }
-    const handleSubmit = async(event)=>{
+
+    const handleSubmit = (event)=>{
         event.preventDefault()
-        let inputPlatforms = platformPrep()
-        await setPlatforms(inputPlatforms)
-        console.log('games: ',game);
-        console.log('platf: ',platforms);
-        console.log('genres: ',genres);
-        // if (Object.keys(errors).length===0){
-        //     dispatch(postNew(game.name,game.description,'1995-08-21',game.rating,genres,platforms,game.image))
-        //     if (created){
-        //         alert(`${game.name} was successfully created`)
-        //         //resetear inputs
-        //     } else alert(`Error: ${postError}`);
-        // } else alert(errors)
+        setErrors(validation({
+            ...game,
+            [event.target.name]:event.target.value,
+        }))
+        // dispatch(postNew(game.name,game.description,game.released,game.rating,genres,platforms,game.image))
+        // console.log(game.released)
     }
 
-
-    const genreMap = (id)=>{
-        let genresAux = [...storeGenres]
-        let getGenreName = genresAux.filter(genre=>genre.id===id)
-        console.log('obj: ',getGenreName);
-        console.log('value; ',getGenreName.name);
-        return(<li key={id}><span>{getGenreName.name}</span><button onClick={(id)=>{deleteGenre(id)}}>X</button></li>)
-    }    
+    const showGenre = ()=>{
+        showGenres ? setShowGenres (false) :setShowGenres(true)
+    }
 return(
     <div>
         {
@@ -73,37 +97,58 @@ return(
                 <h1>Formulario piola</h1>
                 <form onSubmit={handleSubmit}>
                     <label>Name*</label>
-                    <input type="text" name="name" onChange={handleChange}></input> 
-                    <label>Description*</label>
-                    <input type="text" name="description" onChange={handleChange}></input> 
-                    <label>Released</label>
-                    <input type="text" name='released' placeholder='YYYY-MM-DD'></input>
-                    <label>Rating</label>
-                    <input type='number' name='rating' onChange={handleChange}></input>
+                        <input type="text" name="name" onChange={handleChange} autoFocus></input>
+                        { errors.name ? (<span id='errorName'>{errors.name}</span>) :null}
+
+                    <br></br>
+
                     <label>Platforms*</label>
-                    <input type='text' name='platforms' onChange={handleChange}></input> <span>Insert names sepparated by commas</span>
+                        <input type='text' name='platforms' onChange={handleChange} onBlur={platSetting}></input> 
+                        {errors.platforms ? (<span id='errorPlatforms'>{errors.platforms}</span>) :(<span>Insert names sepparated by commas</span>)}
+
+                    <br></br>
+
+                    <label>Description*</label>
+                        <input type="text" name="description" onChange={handleChange}></input> 
+                        {errors.description ? (<span id='errorDescription'>{errors.description}</span>) :null}
+                    <br></br>
+
+                    <label>Rating</label>
+                        <input type='text' name='rating' onChange={handleChange} min='0' max='5'></input>
+                        {errors.rating ? (<span id='errorRating'>{errors.rating}</span>) :null}
+
+                    <br></br>                
+                    
+                    <label>Released</label>                    
+                      <input type='date' name='released' min='1958-01-01' max='2022-06-29' onChange={handleChange}/>
+                      {errors.released ? (<span id='errorReleased'>{errors.released}</span>) :null}
+
+                    <br></br>
+                    
                     <label>Image</label>
-                    <input type="text" name="image" onChange={handleChange}></input>             
+                     <input type="text" name="image" onChange={handleChange}></input>
+                     {errors.image ? (<span id='errorImage'>{errors.image}</span>) :null}
+                    
+                    <br></br>
+
                     <label>Genres</label>
-                    <select name="genres" onChange={ (event)=>
+                        <div id='genresContainer'>
+                         <input type='button' id='showGenres' value='Show genres' onClick={showGenre}></input>
                         
-                            setGenres([...genres,parseInt(event.target.value)])
-                        
-                        } multiple>
-                        { 
-                        //mapeo de genres 
-                        storeGenres.map(genre=><option key={genre.id} value={genre.id}>{`${genre.name}`}</option>)
-                        // store.map(episode=><option key={episode.id} value={episode.id} >{`${episode.id}: ${episode.name}`}</option>)
-                        }
-                    </select>
-                    <label>Selected genres:</label>
-                        <div>
-                            <ul>
+                        {
+                            showGenres ? (<ul>
                                 {
-                                    genres.forEach(genreMap)
+                                    storeGenres.map(genre=>(
+                                        <li key={genre.id}><input type='checkbox' value={`${genre.id}`} onChange={handleGenreChange}></input>{genre.name}</li>
+                                    ))
                                 }
-                            </ul>
+                                </ul>) : null
+                        }
+                        
                         </div>
+
+                    <br></br>
+
                     <button type="submit">Agregar!</button>
         
                 </form>

@@ -105,7 +105,7 @@ const getOneApi = async (id)=>{
     }
 };
 const getGenres =  ()=>{
-    const genres = axios.get(`https://api.rawg.io/api/genres?key=6c956f38e02d447bad5b2ff554b6f93b`) 
+    const genres = axios.get(`https://api.rawg.io/api/genres?key=${process.env.API_KEY}`) 
     .then(res=>res.data.results)
     .then(list=>{        
         let processedList = list.map(p=>{
