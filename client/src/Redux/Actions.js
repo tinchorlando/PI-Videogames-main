@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , FILTER_ORIGIN} from './types/ActionTypes.js'
+import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , FILTER_ORIGIN, POST_RESET} from './types/ActionTypes.js'
 
 
 export const getAll = ()=>{
@@ -107,5 +107,10 @@ export const filterOrigin=(filteredArray)=>{
     return{
         type:FILTER_ORIGIN,
         payload:filteredArray
+    }
+}
+export const resetPost =()=>{
+    return {
+        type:POST_RESET,
     }
 }

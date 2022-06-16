@@ -1,4 +1,4 @@
-const { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_DETAIL, EXIT_SEARCH , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , FILTER_ORIGIN } = require('./types/ActionTypes.js');
+const { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_DETAIL, EXIT_SEARCH , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , FILTER_ORIGIN , POST_RESET} = require('./types/ActionTypes.js');
 
 const initialState = {
     videogames: [],
@@ -9,6 +9,8 @@ const initialState = {
     genres: [],
     filteredGames:[],
     sortedGames:[],
+    created:false,
+    errorPost:''
 }
 
 const rootReducer = (state = initialState , action)=>{
@@ -39,9 +41,21 @@ const rootReducer = (state = initialState , action)=>{
                 ...state,
                 genres:action.payload,
             };
+        case POST_RESET:
+            return{
+                ...state,
+                created:false,
+                errorpost:''
+            }
         case POST_NEW:
-            if (action.payload === 'Created') return 'Success!'
-            else return 'Failed!'
+            if (action.payload === 'Created') return {
+                ...state,
+                created:true,
+            }
+            else return {
+                ...state,
+                errorPost:action.payload,
+            }
             ;
         case EXIT_DETAIL:
             return{

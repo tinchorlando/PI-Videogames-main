@@ -15,7 +15,7 @@ app.get('/',async(req,res,next)=>{
 app.post('/',async(req,res,next)=>{
     try{
         const {name,description,released,rating,genre,platforms,image} = req.body;
-        //primero validar la existencia de los necesarios
+        if (!name || !description || !platforms) throw 'Ingrese todos los datos'
         res.status(201).json(await postVid(name,description,released,rating,genre,platforms,image))
     } catch (error){
         next(error)

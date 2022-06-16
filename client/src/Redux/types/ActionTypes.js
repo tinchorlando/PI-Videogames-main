@@ -10,6 +10,7 @@ const FILTER_GENRE = 'FILTER_GENRE';
 const EXIT_FILTER = 'EXIT_FILTER';
 const FILTER_ORDER = 'FILTER_ORDER';
 const FILTER_ORIGIN ='FILTER_ORIGIN';
+const POST_RESET = 'POST_RESET'
 module.exports={
     GET_ALL,
     GET_ONE,
@@ -22,5 +23,6 @@ module.exports={
     FILTER_GENRE,
     EXIT_FILTER,
     FILTER_ORDER,
-    FILTER_ORIGIN
+    FILTER_ORIGIN,
+    POST_RESET
 }
