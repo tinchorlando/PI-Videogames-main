@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { exitSearch, getGenres , postNew, resetPost } from "../Redux/Actions";
+import { exitSearch, getGenres , postNew, resetPost, verifyName } from "../Redux/Actions";
 
 
 export default function Form (){
-    const [storeGenres,created,postError] = useSelector(state=>[state.genres,state.created,state.errorPost])
+    const [storeGenres,created,postError,storeExistingName] = useSelector(state=>[state.genres,state.created,state.errorPost,state.alreadyExists])
     const dispatch = useDispatch();
 
     const [loaded,setLoaded] = useState(false);
@@ -26,6 +26,9 @@ export default function Form (){
         let errors ={};
         
         if(!data.name) errors.name='Submit a name';
+        if (data.name){            
+            if(storeExistingName) errors.name='Game already exists in database'
+        }
 
         if(!data.platforms) errors.platforms='Submit at least one platform';
 
@@ -38,11 +41,15 @@ export default function Form (){
 
         if(data.released){
             //validacion formato fecha YYYYMMDD y fecha valida
-            errors.released='error'
-        }
-        if(!data.image) {
+            if (!/([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(data.released)) errors.released='invalid date';
+            else {
+                let date = data.released.split('-');
+                if (date[0]<1958) errors.released = 'Date must be posterior to 1958'
+            };            
+        }   
+        if(data.image) {
             //validacion para que sea imagen
-            errors.image='error'
+            if (!/(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(data.image)) errors.image='Submit a valid link';
         }
         
         return errors
@@ -83,9 +90,11 @@ export default function Form (){
             [event.target.name]:event.target.value,
         }))
         // dispatch(postNew(game.name,game.description,game.released,game.rating,genres,platforms,game.image))
-        // console.log(game.released)
+        console.log(game.name)
     }
-
+    const checkName = (name)=>{
+        dispatch(verifyName(name))
+    }
     const showGenre = ()=>{
         showGenres ? setShowGenres (false) :setShowGenres(true)
     }
@@ -97,7 +106,7 @@ return(
                 <h1>Formulario piola</h1>
                 <form onSubmit={handleSubmit}>
                     <label>Name*</label>
-                        <input type="text" name="name" onChange={handleChange} autoFocus></input>
+                        <input type="text" name="name" onChange={handleChange} onBlur={()=>checkName(game.name.toLowerCase())} autoFocus></input>
                         { errors.name ? (<span id='errorName'>{errors.name}</span>) :null}
 
                     <br></br>

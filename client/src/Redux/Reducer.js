@@ -10,7 +10,8 @@ const initialState = {
     filteredGames:[],
     sortedGames:[],
     created:false,
-    errorPost:''
+    errorPost:'',
+    alreadyExists:false,
 }
 
 const rootReducer = (state = initialState , action)=>{
@@ -45,7 +46,8 @@ const rootReducer = (state = initialState , action)=>{
             return{
                 ...state,
                 created:false,
-                errorpost:''
+                errorpost:'',
+                alreadyExists:false,
             }
         case POST_NEW:
             if (action.payload === 'Created') return {
@@ -104,6 +106,15 @@ const rootReducer = (state = initialState , action)=>{
                 ...state,
                 notFound:true,
             }
+        case 'VERIFY_NAME':
+            if(action.payload) return{
+                ...state,
+                alreadyExists:true,
+            }
+            return{
+                ...state,
+                alreadyExists:false,
+            }        
         default:
             return state
     }

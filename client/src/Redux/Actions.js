@@ -16,7 +16,7 @@ export const getAll = ()=>{
 };
 export const getSome = (name)=>{
     return async dispatch =>{        
-        axios.get(`http://localhost:3001/videogames/?name=${name}`)    
+        axios.get(`http://localhost:3001/videogames/?name=${name}`)
         .then(res=>res.data)
         .then(videogames=>{
             dispatch({
@@ -26,6 +26,34 @@ export const getSome = (name)=>{
         })
     }
 }
+export const verifyName = (name)=>{
+    return async dispatch =>{
+        axios.get(`http://localhost:3001/videogames/?name=${name}`)
+        .then(res=>res.data)
+        .then((videogames)=>{
+            if (videogames.filter(p=>{ let regexp = /.*[a-zA-Z].*/
+                if (p.name.toLowerCase()===name.toLowerCase() && regexp.test(p.id)) return p
+            }).length){
+            dispatch({
+                type:'VERIFY_NAME',
+                payload:true
+            })
+            }else {
+                dispatch({
+                    type:'VERIFY_NAME',
+                    payload:false,
+                })
+            }
+        })
+        .catch(()=>{
+            dispatch({
+                type:'VERIFY_NAME',
+                payload:false,
+            })
+        })
+    }
+}
+
 export const getGenres = ()=>{
     return async dispatch =>{
         const res= await axios.get('http://localhost:3001/genres');
@@ -45,6 +73,7 @@ export const getOne = (id) =>{
         })
     }
 }
+
 export const postNew = (name,description,released,rating,genre,platforms,image)=>{
     return async dispatch=>{
         try{

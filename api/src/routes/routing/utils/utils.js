@@ -37,7 +37,7 @@ const getAllFromDb = async ()=>{
     return data
 }
 
-const getSome = async (name)=>{
+const getSomeApi = async (name)=>{
     const fetch = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${process.env.API_KEY}`);
     const games = fetch.data.results.map(game=>{
         return {
@@ -48,9 +48,43 @@ const getSome = async (name)=>{
             genres: game.genres.map(p=>p.name),
         }
     })
-    return games.slice(0,15)
+    return games
 }
 
+const getSomeDb = async(name)=>{
+    const res = await Videogame.findAll({
+        include:Genre,
+        where:{
+            name:name,
+        }
+    })
+    let games = res.map(res=>{return{
+        id: res.dataValues.id,
+        name: res.dataValues.name,
+        image: res.dataValues.image,
+        rating: res.dataValues.rating,
+        genres: res.dataValues.genres.map(p=>p.name)
+    }})
+    return games;
+}
+
+const getSome = async (name)=>{
+    const api = await getSomeApi(name);
+    const db = await getSomeDb(name);
+    if (db.length){        
+        let asd = 15-db.length
+        let exit = [...api.slice(0,asd),...db]
+        let regexp = /.*[a-zA-Z].*/
+        let fil = exit.filter(p=>{
+            if (p.name==='Halo' && regexp.test(p.id)) return p
+        })
+        console.log(fil)
+        return exit
+    }
+
+
+    return api
+}
 const getAll = async ()=>{    
     const api = await getAllFromApi();
     const db = await getAllFromDb()
