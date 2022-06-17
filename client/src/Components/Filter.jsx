@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { exitFilters, filtered, orderSort , filterOrigin} from "../Redux/Actions";
+import { exitFilters, filterBy, orderSort } from "../Redux/Actions";
 
 
 
@@ -46,7 +46,7 @@ const handleFilterChange = (event)=>{
 useEffect(()=>{
     //al filtrar copia puedo recuperar al eliminar filtros
     if (genreFilter.length){
-        dispatch(filtered(games.filter(p=>{
+        dispatch(filterBy(games.filter(p=>{
             let match;
             for (let i=0;i<genreFilter.length;i++){
                 match=true;

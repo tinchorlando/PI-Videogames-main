@@ -47,7 +47,7 @@ export default function Detail (){
                         {
                             state.platforms.map(p=>{
                                 return(
-                                    <li>{p}</li>
+                                    <li key={p}>{p}</li>
                                 )
                             })
                         }

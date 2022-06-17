@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Videogame , Genre } = require('../../../db.js') 
-
+const { Op } = require('sequelize');
 
 const getAllFromApi = async ()=>{    
     let url = `https://api.rawg.io/api/games?key=${process.env.API_KEY}`
@@ -55,7 +55,10 @@ const getSomeDb = async(name)=>{
     const res = await Videogame.findAll({
         include:Genre,
         where:{
-            name:name,
+            name:{
+                [Op.iLike]:name
+            }
+            
         }
     })
     let games = res.map(res=>{return{
@@ -73,12 +76,7 @@ const getSome = async (name)=>{
     const db = await getSomeDb(name);
     if (db.length){        
         let asd = 15-db.length
-        let exit = [...api.slice(0,asd),...db]
-        let regexp = /.*[a-zA-Z].*/
-        let fil = exit.filter(p=>{
-            if (p.name==='Halo' && regexp.test(p.id)) return p
-        })
-        console.log(fil)
+        let exit = [...api.slice(0,asd),...db]       
         return exit
     }
 

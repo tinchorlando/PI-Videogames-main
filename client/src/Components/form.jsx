@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { exitSearch, getGenres , postNew, resetPost, verifyName } from "../Redux/Actions";
+import { getGenres , postNew, resetPost, verifyName } from "../Redux/Actions";
 
 
 export default function Form (){
-    const [storeGenres,created,postError,storeExistingName] = useSelector(state=>[state.genres,state.created,state.errorPost,state.alreadyExists])
+    const [storeGenres,storeCreated,postError,storeExistingName] = useSelector(state=>[state.genres,state.created,state.errorPost,state.alreadyExists])
     const dispatch = useDispatch();
 
     const [loaded,setLoaded] = useState(false);
@@ -15,24 +15,36 @@ export default function Form (){
     const [platforms,setplatforms] = useState([])
 
     useEffect(()=>{
-        if (storeGenres.length && !created) setLoaded(true);
-        else {
-            if (!storeGenres.length) dispatch(getGenres());
-            if (created) dispatch(resetPost());
+        if (storeGenres.length) setLoaded(true);
+        else  dispatch(getGenres());
+    },[storeGenres]);
+
+    useEffect(()=>{
+        setErrors(validation({...game}))
+    },[storeExistingName])
+    
+    useEffect(()=>{
+        if(storeCreated){
+            setLoaded(true)
+            alert('game created!')
+            dispatch(resetPost())
         }
-    },[storeGenres]);    
+        if( !storeCreated && Object.keys(postError).length){
+            alert('Error! Check form for errors')
+        }
+    },[storeCreated,postError])
 
     const validation = (data) =>{
         let errors ={};
         
-        if(!data.name) errors.name='Submit a name';
-        if (data.name){            
+        if(!data.name) errors.name='Obligatory field';
+        if (data.name){
             if(storeExistingName) errors.name='Game already exists in database'
         }
 
-        if(!data.platforms) errors.platforms='Submit at least one platform';
+        if(!data.platforms) errors.platforms='Obligatory field';
 
-        if(!data.description) errors.description='Submit a description';
+        if(!data.description) errors.description='Obligatory field';
 
         if(data.rating) {
             if (!/^\d*(\.\d+)?$/.test(data.rating)) errors.rating='Submit a valid rating';
@@ -45,7 +57,7 @@ export default function Form (){
             else {
                 let date = data.released.split('-');
                 if (date[0]<1958) errors.released = 'Date must be posterior to 1958'
-            };            
+            };
         }   
         if(data.image) {
             //validacion para que sea imagen
@@ -59,6 +71,10 @@ export default function Form (){
             ...game,
             [event.target.name]:event.target.value,
         })
+        setErrors(validation({
+            ...game,
+            [event.target.name]:event.target.value,
+        }))
 
     }
     const handleGenreChange = (event)=>{        
@@ -76,27 +92,26 @@ export default function Form (){
         } else platforms.push(prePlat)
         return platforms
     }
-    const platSetting = ()=>{
+    const handlePlatforms = ()=>{
         if (game.platforms){
             let inputPlat = platformPrep();
             setplatforms(inputPlat);
         }
     }
 
-    const handleSubmit = (event)=>{
-        event.preventDefault()
-        setErrors(validation({
-            ...game,
-            [event.target.name]:event.target.value,
-        }))
-        // dispatch(postNew(game.name,game.description,game.released,game.rating,genres,platforms,game.image))
-        console.log(game.name)
-    }
-    const checkName = (name)=>{
-        dispatch(verifyName(name))
+    const checkName = async(name)=>{
+        if (name) dispatch(verifyName(name.toLowerCase()))
     }
     const showGenre = ()=>{
         showGenres ? setShowGenres (false) :setShowGenres(true)
+    }
+    
+    const handleSubmit = (event)=>{
+        event.preventDefault()
+        if (!Object.keys(errors).length && Object.keys(game).length) {
+            dispatch(postNew(game.name,game.description,game.released,game.rating,genres,platforms,game.image))
+            setLoaded(false)
+        }
     }
 return(
     <div>
@@ -106,13 +121,13 @@ return(
                 <h1>Formulario piola</h1>
                 <form onSubmit={handleSubmit}>
                     <label>Name*</label>
-                        <input type="text" name="name" onChange={handleChange} onBlur={()=>checkName(game.name.toLowerCase())} autoFocus></input>
-                        { errors.name ? (<span id='errorName'>{errors.name}</span>) :null}
+                        <input type="text" name="name" onChange={handleChange} onBlur={()=> checkName(game.name)}></input>
+                        { errors.name ? (<span className='errors'>{errors.name}</span>) :null}
 
                     <br></br>
 
                     <label>Platforms*</label>
-                        <input type='text' name='platforms' onChange={handleChange} onBlur={platSetting}></input> 
+                        <input type='text' name='platforms' onChange={handleChange} onBlur={handlePlatforms}></input> 
                         {errors.platforms ? (<span id='errorPlatforms'>{errors.platforms}</span>) :(<span>Insert names sepparated by commas</span>)}
 
                     <br></br>

@@ -4,13 +4,15 @@ import { exitFilters, getSome , saveSearch } from "../Redux/Actions";
 
 
 export default function SearchBar (){
-    const [input,setInput] = useState({});
+    const [input,setInput] = useState({
+        searchBar:''
+    });
     const dispatch = useDispatch();
 
     const handleChange = (event)=>{
         setInput({
             ...input,
-            [event.target.name]:event.target.value,
+            searchBar:event.target.value,
         })
         
     };
@@ -20,7 +22,7 @@ export default function SearchBar (){
         dispatch(saveSearch(input.searchBar))
         dispatch(getSome(input.searchBar))
         setInput({
-            'searchBar':''
+            searchBar:''
         })
         
     };

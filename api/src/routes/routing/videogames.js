@@ -20,7 +20,7 @@ app.post('/',async(req,res,next)=>{
         if (!name || !description || !platforms) throw 'Ingrese todos los datos'
         res.status(201).json(await postVid(name,description,released,rating,genre,platforms,image))
     } catch (error){
-        next(error)
+        res.status(400).send(error)
     }
 })
 

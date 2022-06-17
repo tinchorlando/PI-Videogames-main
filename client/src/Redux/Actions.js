@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , FILTER_ORIGIN, POST_RESET} from './types/ActionTypes.js'
+import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , POST_RESET} from './types/ActionTypes.js'
 
 
 export const getAll = ()=>{
@@ -31,8 +31,8 @@ export const verifyName = (name)=>{
         axios.get(`http://localhost:3001/videogames/?name=${name}`)
         .then(res=>res.data)
         .then((videogames)=>{
-            if (videogames.filter(p=>{ let regexp = /.*[a-zA-Z].*/
-                if (p.name.toLowerCase()===name.toLowerCase() && regexp.test(p.id)) return p
+            if (videogames.filter(p=>{ let regexp = /.*[a-zA-Z].*/            
+                if (regexp.test(p.id) && (p.name.toLowerCase())===name) return p
             }).length){
             dispatch({
                 type:'VERIFY_NAME',
@@ -115,7 +115,7 @@ export const saveSearch = (searchName)=>{
         payload:searchName,
     }
 }
-export const filtered = (array)=>{
+export const filterBy = (array)=>{
     return{
         type:FILTER_GENRE,
         payload:array,
@@ -130,12 +130,6 @@ export const orderSort = (filteredArray)=>{
     return{
         type:FILTER_ORDER,
         payload:filteredArray,
-    }
-}
-export const filterOrigin=(filteredArray)=>{
-    return{
-        type:FILTER_ORIGIN,
-        payload:filteredArray
     }
 }
 export const resetPost =()=>{
