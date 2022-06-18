@@ -1,0 +1,6 @@
+body{
+    background: url("https://panoramacultural.com.co/media/images/articulos/2021/02/26203237.jpg");
+    background-color: black;
+    /* background-size: cover; */
+    transform:scale(0.5)
+}
