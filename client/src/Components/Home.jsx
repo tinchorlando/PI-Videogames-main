@@ -3,6 +3,7 @@ import { useDispatch , useSelector } from "react-redux";
 import { getAll , exitSearch , getGenres } from "../Redux/Actions.js";
 import  Pagination from './Pagination.jsx'
 import CardHolder from "./CardHolder.jsx";
+import s from './Styles/Home.module.css'
 
 export default function Home (){
     const [videogames,setVideogames]=useState({list:[],key:''});
@@ -68,7 +69,7 @@ export default function Home (){
         dispatch(exitSearch())
     }
     return (
-      <div>
+      <div className={s.home}>
         <CardHolder
           videogames={videogames}
           currentGames={currentGames}
@@ -77,7 +78,9 @@ export default function Home (){
           endSearch={endSearch}
           notFound={notFound}
         />
-        <Pagination totalGames={videogames.list.length} paginate={paginate} />
+        <footer>
+          <Pagination totalGames={videogames.list.length} paginate={paginate} />
+        </footer>
       </div>
     );
 }

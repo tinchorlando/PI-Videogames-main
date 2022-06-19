@@ -1,3 +1,4 @@
+import s from './Styles/Pagination.module.css'
 export default function Pagination ({totalGames , paginate}){
 
     let pages = [];
@@ -7,7 +8,7 @@ export default function Pagination ({totalGames , paginate}){
     return(
         <div>
             
-            <ul>
+            <ul className={s.container}>
                 {
                 pages.map(pageNumber=><li key={pageNumber}><a href='#' onClick={()=>paginate(pageNumber)}>{pageNumber}</a></li>)
                 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { exitFilters, filterBy, orderSort } from "../Redux/Actions";
-
+import s from './Styles/Filter.module.css';
 
 
 export default function Filter (){
@@ -109,42 +109,42 @@ useEffect(()=>{
 
 return(
     <div>
-        <img src='https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg' alt='filter' onClick={toggle}/>
+        <img className={s.filterImg} src='https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg' alt='filter' onClick={toggle}/>
         {
             toggleBar ? (<nav>
-                <button className="collapsible" onClick={showFilters}>Filters</button>
+                <button className={s.button} onClick={showFilters}>Filters</button>
                 {
                 toggleFilters ? (
-                    <div className='filters'>
+                    <div className={s.checkboxes}>
                         <div className="content">
                             <ul>
                                 {
                                     storeGenres.map(p=>
                                     <li key={p.id}>
-                                        {p.name}<input type='checkbox' className="genreCheckbox" value={p.name} onChange={handleFilterChange}></input>
+                                        {p.name}<input className={s.checkbox} type='checkbox' value={p.name} onChange={handleFilterChange}></input>
                                     </li>
                                     )
                                 }
                             </ul>
                         </div>
-                        <button className="collapsible">Data origin</button>
-                            <div className="content">
-                                <input type='checkbox' className='originInput' name='origin' value='api' onChange={handleFilterChange}></input>Api
-                                <input type='checkbox' className='originInput' name='origin' value='dataBase' onChange={handleFilterChange}></input>Database
+                        <button className={s.button}>Data origin</button>
+                            <div className={s.checkboxes}>
+                                <input type='checkbox' className={s.checkbox} name='origin' value='api' onChange={handleFilterChange}></input>Api
+                                <input type='checkbox' className={s.checkbox} name='origin' value='dataBase' onChange={handleFilterChange}></input>Database
                             </div>
                                                         
                     </div>
                     ) : null
                     }
                 
-                <button className="collapsible" onClick={showOrdering}>order</button>
+                <button className={s.button} onClick={showOrdering}>order</button>
                 {toggleOrder ? 
                 (
-                    <div className="content">
-                        <input type='radio' className=  'orderInput' name='orderInput' value='alphInc' onChange={handleOrderChange}></input>alphabetical incremental
-                        <input type='radio'  className= 'orderInput' name='orderInput' value='alphDec' onChange={handleOrderChange}></input>alphabetical decremental
-                        <input type='radio' className=  'orderInput' name='orderInput' value='ratDec' onChange={handleOrderChange}></input>Rating decremental
-                        <input type='radio'  className= 'orderInput' name='orderInput' value='ratInc' onChange={handleOrderChange}></input>Rating incremental
+                    <div className={s.radios}>
+                        <input type='radio' className={s.radio} name='orderInput' value='alphInc' onChange={handleOrderChange}></input>alphabetical incremental
+                        <input type='radio'  className= {s.radio} name='orderInput' value='alphDec' onChange={handleOrderChange}></input>alphabetical decremental
+                        <input type='radio' className=  {s.radio} name='orderInput' value='ratDec' onChange={handleOrderChange}></input>Rating decremental
+                        <input type='radio'  className= {s.radio} name='orderInput' value='ratInc' onChange={handleOrderChange}></input>Rating incremental
 
                     </div>                
                 ) : null}

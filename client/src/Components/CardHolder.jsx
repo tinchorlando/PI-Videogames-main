@@ -1,6 +1,7 @@
 import Card from "./Card"
 import Filter from "./Filter"
 import SearchBar from "./SearchBar"
+import s from './Styles/CardHolder.module.css'
 
 export default function CardHolder({ videogames , currentGames , loaded , searchedGame , endSearch,notFound}){
 
@@ -9,15 +10,10 @@ export default function CardHolder({ videogames , currentGames , loaded , search
 
     if (loaded){
         return(
-            <div>
-                <div>
-                    <Filter />
-                    <SearchBar/>
-                </div>
-                
+            <div>                
                 {
                     videogames.key === 'searched' ? (
-                    <div>
+                    <div className={s.searchs}>
                         <h2>Search results for {searchedGame}:</h2> <button onClick={endSearch}> Close search</button>                       
                         {
                             notFound ? `No matches found for ${searchedGame}` : currentGames.map(mapCard) 
@@ -25,10 +21,11 @@ export default function CardHolder({ videogames , currentGames , loaded , search
                     </div>
                     ) : (
                     <div>
-                        <h2>Games:</h2>
+                            <div className={s.gamesHolder}>
                         {
                             notFound ? 'No matches found' : currentGames.map(mapCard)
                         }
+                            </div>
                     </div>
                     ) 
                 

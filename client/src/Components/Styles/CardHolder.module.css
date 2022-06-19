@@ -1,0 +1,20 @@
+.heads{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+
+.searchs{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.gamesHolder{
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+}
+.tit{
+    display:block;
+    color:white;
+}
