@@ -1,15 +1,16 @@
-.navBar{
-    position:relative;
-    background-color: black;
-}
 .navigation{
-    position:absolute;
-    top:0px;
-    right:50px;
-
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0px;
+    left: 0px;
 }
-.filtering{
-    display:flex;
-    position:relative;
-    left:20px
+.navBtn{
+    background-color: rgb(90, 9, 90 , 0.75);
+    text-decoration: none;
+    font-family: fantasy;
+    color: palegoldenrod;
+}
+.activeBtn{
+    background-color: rgb(90, 9, 90 )
 }

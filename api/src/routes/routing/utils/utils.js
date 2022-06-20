@@ -75,13 +75,13 @@ const getSome = async (name)=>{
     const api = await getSomeApi(name);
     const db = await getSomeDb(name);
     if (db.length){        
-        let asd = 15-db.length
-        let exit = [...api.slice(0,asd),...db]       
-        return exit
+        let limit = 15-db.length
+        let list = [...api.slice(0,limit),...db]       
+        return list
     }
 
 
-    return api
+    return api.slice(0,15)
 }
 const getAll = async ()=>{    
     const api = await getAllFromApi();

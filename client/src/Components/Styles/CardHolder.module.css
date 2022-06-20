@@ -18,3 +18,10 @@
     display:block;
     color:white;
 }
+.tops{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   background-color: black;
+   color:white;
+}

@@ -14,6 +14,7 @@ let [storeFiltered, storeGenres, storeVideogames , storeSearched] = useSelector(
 const [toggleBar,setToggleBar] = useState(false);
 const [toggleFilters,setToggleFilters] = useState(false);
 const [toggleOrder,setToggleOrder] = useState(false);
+const [toggleOrigin,setToggleOrigin] = useState(false);
 const [genreFilter,setGenreFilter] = useState([]);
 const [order,setOrder] = useState([]);
 const [games,setGames]=useState([]);
@@ -24,6 +25,10 @@ const toggle = ()=>{
 };
 const showFilters = ()=>{
     toggleFilters ? setToggleFilters(false) : setToggleFilters(true)
+}
+const showOrigin = ()=>{
+    toggleOrigin ? setToggleOrigin(false) : setToggleOrigin(true)
+    
 }
 const showOrdering = ()=>{
     toggleOrder ? setToggleOrder(false) : setToggleOrder(true)
@@ -108,16 +113,18 @@ useEffect(()=>{
 
 
 return(
-    <div>
-        <img className={s.filterImg} src='https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg' alt='filter' onClick={toggle}/>
-        {
-            toggleBar ? (<nav>
+        <nav className={s.nav}>            
+            <img className={s.filterImg} src='https://t3.ftcdn.net/jpg/03/20/78/84/360_F_320788475_nEiLVViOBewea7taZWqNUR0lJAMTAaSo.jpg' alt='filter' onClick={toggle}/>
+
+            {
+            toggleBar ? (
+            <div className={s.filterContainer}>
                 <button className={s.button} onClick={showFilters}>Filters</button>
                 {
                 toggleFilters ? (
-                    <div className={s.checkboxes}>
-                        <div className="content">
-                            <ul>
+                    <div >
+                        <div className={s.genresContainer}>
+                            <ul className={s.checkboxes}>
                                 {
                                     storeGenres.map(p=>
                                     <li key={p.id}>
@@ -126,13 +133,17 @@ return(
                                     )
                                 }
                             </ul>
-                        </div>
-                        <button className={s.button}>Data origin</button>
-                            <div className={s.checkboxes}>
-                                <input type='checkbox' className={s.checkbox} name='origin' value='api' onChange={handleFilterChange}></input>Api
-                                <input type='checkbox' className={s.checkbox} name='origin' value='dataBase' onChange={handleFilterChange}></input>Database
-                            </div>
-                                                        
+                        </div>                    
+                        <button className={s.asd} onClick={showOrigin}>Data origin</button>
+
+                        {
+                            toggleOrigin ? (
+                            <ul className={`${s.checkboxes} ${s.originContainer}`}>
+                                <li><input type='checkbox' className={s.checkbox} name='origin' value='api' onChange={handleFilterChange}></input>Api</li>
+                                <li><input type='checkbox' className={s.checkbox} name='origin' value='dataBase' onChange={handleFilterChange}></input>Database</li>
+                            </ul>
+                            ) : null
+                        }                                         
                     </div>
                     ) : null
                     }
@@ -141,18 +152,17 @@ return(
                 {toggleOrder ? 
                 (
                     <div className={s.radios}>
-                        <input type='radio' className={s.radio} name='orderInput' value='alphInc' onChange={handleOrderChange}></input>alphabetical incremental
-                        <input type='radio'  className= {s.radio} name='orderInput' value='alphDec' onChange={handleOrderChange}></input>alphabetical decremental
-                        <input type='radio' className=  {s.radio} name='orderInput' value='ratDec' onChange={handleOrderChange}></input>Rating decremental
-                        <input type='radio'  className= {s.radio} name='orderInput' value='ratInc' onChange={handleOrderChange}></input>Rating incremental
+                        <input type='radio' className={s.radio} name='orderInput' value='alphInc' onChange={handleOrderChange}></input>A-Z
+                        <input type='radio'  className= {s.radio} name='orderInput' value='alphDec' onChange={handleOrderChange}></input>Z-A
+                        <input type='radio' className=  {s.radio} name='orderInput' value='ratDec' onChange={handleOrderChange}></input>Best rating
+                        <input type='radio'  className= {s.radio} name='orderInput' value='ratInc' onChange={handleOrderChange}></input>Worst rating
 
                     </div>                
                 ) : null}
                     
-                </nav>  
+            </div>  
                 ) : null
         }
-        
-    </div>
+        </nav>        
     );
 }

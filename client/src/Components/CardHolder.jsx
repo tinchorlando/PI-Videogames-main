@@ -10,7 +10,11 @@ export default function CardHolder({ videogames , currentGames , loaded , search
 
     if (loaded){
         return(
-            <div>                
+            <div>
+                <header className={s.tops}>
+                    <SearchBar />
+                    <Filter />
+                </header>         
                 {
                     videogames.key === 'searched' ? (
                     <div className={s.searchs}>

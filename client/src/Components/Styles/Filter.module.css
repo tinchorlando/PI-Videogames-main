@@ -1,19 +1,35 @@
-.filterImg{
-    max-width: 10px;
-    max-height: 10px;
-
+.nav{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 600px;
 }
-.button{
 
+.filterImg{
+    max-width: 30px;
+    max-height: 30px;
+}
+.filterContainer{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.asd{
+    align-self:flex-end;
 }
 .checkboxes{
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: white;
+    list-style: none;
+    justify-content: flex-end;
 }
 .checkbox{
 
 }
 .radios{
-
+    color: white;
 }
 .radio{
 

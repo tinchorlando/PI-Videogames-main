@@ -70,14 +70,17 @@ export default function Home (){
     }
     return (
       <div className={s.home}>
-        <CardHolder
-          videogames={videogames}
-          currentGames={currentGames}
-          loaded={dataLoaded}
-          searchedGame={searchedName}
-          endSearch={endSearch}
-          notFound={notFound}
-        />
+        <h1 className={s.title}>Henry games</h1>
+        <main className={s.mainContainer}>
+          <CardHolder
+            videogames={videogames}
+            currentGames={currentGames}
+            loaded={dataLoaded}
+            searchedGame={searchedName}
+            endSearch={endSearch}
+            notFound={notFound}
+          />
+        </main>
         <footer>
           <Pagination totalGames={videogames.list.length} paginate={paginate} />
         </footer>
