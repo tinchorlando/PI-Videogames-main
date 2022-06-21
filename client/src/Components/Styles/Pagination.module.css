@@ -3,4 +3,11 @@
     flex-wrap: wrap;
     justify-content:center;
     list-style: none;
+    background-color: rgb(82, 9, 82);
+}
+.link{
+    text-decoration: auto;
+    color: palegoldenrod;
+    margin: 0 2px 2px 0;
+    font-size: 1.5em;
 }

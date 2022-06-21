@@ -119,10 +119,10 @@ return(
             {
             toggleBar ? (
             <div className={s.filterContainer}>
-                <button className={s.button} onClick={showFilters}>Filters</button>
+                <button className={`${s.button} ${s.filterButton}`} onClick={showFilters}>Filters</button>
                 {
                 toggleFilters ? (
-                    <div >
+                    <div>
                         <div className={s.genresContainer}>
                             <ul className={s.checkboxes}>
                                 {
@@ -134,7 +134,7 @@ return(
                                 }
                             </ul>
                         </div>                    
-                        <button className={s.asd} onClick={showOrigin}>Data origin</button>
+                        <button className={`${s.button} ${s.asd}`} onClick={showOrigin}>Data origin</button>
 
                         {
                             toggleOrigin ? (
@@ -148,7 +148,7 @@ return(
                     ) : null
                     }
                 
-                <button className={s.button} onClick={showOrdering}>order</button>
+                <button className={`${s.button} ${s.orderingButton}`} onClick={showOrdering}>Order</button>
                 {toggleOrder ? 
                 (
                     <div className={s.radios}>

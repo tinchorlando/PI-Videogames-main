@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import s from './Styles/Pagination.module.css'
 export default function Pagination ({totalGames , paginate}){
 
@@ -10,7 +11,7 @@ export default function Pagination ({totalGames , paginate}){
             
             <ul className={s.container}>
                 {
-                pages.map(pageNumber=><li key={pageNumber}><a href='#' onClick={()=>paginate(pageNumber)}>{pageNumber}</a></li>)
+                pages.map(pageNumber=><li key={pageNumber}><a className={s.link} href='#' onClick={()=>paginate(pageNumber)}>{pageNumber}</a></li>)
                 }
             </ul>
         </div>

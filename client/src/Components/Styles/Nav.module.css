@@ -1,9 +1,7 @@
 .navigation{
-    position: absolute;
     display: flex;
-    flex-direction: column;
-    top: 0px;
-    left: 0px;
+    align-items: flex-start;
+    justify-content: space-around;
 }
 .navBtn{
     background-color: rgb(90, 9, 90 , 0.75);

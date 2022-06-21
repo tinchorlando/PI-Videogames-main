@@ -1,0 +1,36 @@
+.content{
+    background-color: rgb(43, 35, 44,0.5);
+    color:palegoldenrod;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.tit{
+    align-self: center;
+}
+.lists{
+    list-style: none;
+    display:flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.listados{
+    display: flex;
+    align-self: center;
+}
+.num{
+    align-self: normal;
+}
+.dat{
+    display: inline;
+    margin: 5px;
+}
+.desc{
+    background-color: rgba(17, 17, 14, 0.2);
+}
+.txt{
+    font-family: fantasy;
+    font-weight: 100;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
