@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { getGenres , postNew, resetPost, verifyName } from "../Redux/Actions";
+import { getAll, getGenres , postNew, resetPost, verifyName } from "../Redux/Actions";
 import s from './Styles/Form.module.css';
 
 
@@ -112,6 +112,7 @@ export default function Form (){
         if (!Object.keys(errors).length && Object.keys(game).length) {
             dispatch(postNew(game.name,game.description,game.released,game.rating,genres,platforms,game.image))
             setLoaded(false)
+            dispatch(getAll())
         }
     }
 return(
