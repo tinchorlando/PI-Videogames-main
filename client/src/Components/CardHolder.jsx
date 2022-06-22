@@ -31,7 +31,7 @@ if (loaded){
                 <div>
                         <div className={s.gamesHolder}>
                     {
-                        notFound ? 'No matches found' : currentGames.map(mapCard)
+                        notFound ? (<h3 className={s.tit}>No matches found</h3>) : currentGames.map(mapCard)
                     }
                         </div>
                 </div>

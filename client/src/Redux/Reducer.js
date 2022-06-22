@@ -68,7 +68,8 @@ const rootReducer = (state = initialState , action)=>{
             return{
                 ...state,
                 searchedGames:[],
-                searchedName:''
+                searchedName:'',
+                notFound:false,
             }
         case SAVE_SEARCH:
             return{
