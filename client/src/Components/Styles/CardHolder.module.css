@@ -8,21 +8,44 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #974063;    
 }
 
 .gamesHolder{
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
+   background-color: #41436A;
 }
 .tit{
-    display:block;
-    color:white;
+    font-family: fantasy;
+    font-weight: 100;
+    color:palegoldenrod;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.btn{
+    font-family: fantasy;
+    font-weight: 100;
+    color:palegoldenrod;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    background-color: #F54768;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding:5px;
+    font-size:medium;
+}
+.btn:hover{
+    background-color:#FF9677;
+    color: #41436A;
 }
 .tops{
    display: flex;
    flex-direction: row;
    justify-content: space-between;
-   background-color: black;
-   color:white;
+   background-color: #974063;
+   border-bottom-left-radius: 10px;
+   border-bottom-right-radius: 10px;
 }

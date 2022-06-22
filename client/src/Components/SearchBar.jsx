@@ -28,7 +28,7 @@ export default function SearchBar (){
     };
     return(
         <form className={s.search} onSubmit={handleSubmit}>
-            <input name='searchBar' placeholder='Search videogame' value={input.searchBar} onChange={handleChange}></input><button type='submit'>Search</button>
+            <input className={s.input} name='searchBar' placeholder='Search videogame' value={input.searchBar} onChange={handleChange}></input><button className={s.btn} type='submit'>Search</button>
         </form>
     )
 }

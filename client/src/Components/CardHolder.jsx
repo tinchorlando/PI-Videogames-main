@@ -19,11 +19,11 @@ if (loaded){
                 videogames.key === 'searched' ? (
                 <div>
                     <div className={s.prevText}>
-                        <h2>Search results for {searchedGame}:</h2> <button className={s.noSearch} onClick={endSearch}> Close search</button>
+                        <h2 className={s.tit}>Search results for {searchedGame}:</h2> <button className={s.btn} onClick={endSearch}> Close search</button>
                     </div>
                     <div className={s.gamesHolder}>
                     {
-                        notFound ? (<h3>No matches found for {searchedGame}</h3>) : currentGames.map(mapCard) 
+                        notFound ? (<h3 className={s.tit}>No matches found for {searchedGame}</h3>) : currentGames.map(mapCard) 
                     }    
                     </div>
                 </div>
@@ -42,6 +42,6 @@ if (loaded){
         
         )
 }else {
-    return (<h2>Loading...</h2>)
+    return (<h2 className={s.tit}>Loading...</h2>)
 }
 }

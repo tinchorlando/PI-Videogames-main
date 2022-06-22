@@ -69,18 +69,20 @@ export default function Home (){
         dispatch(exitSearch())
     }
     return (
-      <div className={s.home}>
-        <h1 className={s.title}>Henry games</h1>
-        <main className={s.mainContainer}>
-          <CardHolder
-            videogames={videogames}
-            currentGames={currentGames}
-            loaded={dataLoaded}
-            searchedGame={searchedName}
-            endSearch={endSearch}
-            notFound={notFound}
-          />
-        </main>
+      <div>
+        <div className={s.home}>
+          <h1 className={s.title}>HENRY GAMES</h1>
+          <main className={s.mainContainer}>
+            <CardHolder
+              videogames={videogames}
+              currentGames={currentGames}
+              loaded={dataLoaded}
+              searchedGame={searchedName}
+              endSearch={endSearch}
+              notFound={notFound}
+            />
+          </main>
+        </div>
         <footer>
           <Pagination totalGames={videogames.list.length} paginate={paginate} />
         </footer>

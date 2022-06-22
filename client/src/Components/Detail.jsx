@@ -23,7 +23,9 @@ export default function Detail (){
     const divStyle ={
         backgroundImage: `url(${state.image})`,
         backgroundSize: 'cover',
-
+        minHeight: '840px',
+        borderRadius:'10px',
+        marginTop:'10px',
     }
     return(
         <div style={divStyle}>
@@ -77,7 +79,7 @@ export default function Detail (){
                         </ul>
                     </div>
                 </div>
-                ) : '...Loading'
+                ) : (<h2 className={`${s.txt} ${s.load}`}>...Loading</h2>)
             }
         </div>
     )

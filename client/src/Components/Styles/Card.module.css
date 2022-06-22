@@ -4,12 +4,15 @@
     border-style: solid;
     border-radius: 10px;
     width:400px;
-    /* background-color: rgba(74, 13, 77, 0.5); */
     justify-content: center;
     margin: 10px;
+    box-shadow: 0 0 5px black;
+    min-height: 520px;
 }
 .card:hover{
-    background-color: rgba(74, 13, 77, 0.7);
+    background-color: #F54768;
+    color: #41436A;
+    box-shadow: none;
 }
 
 .Link{
