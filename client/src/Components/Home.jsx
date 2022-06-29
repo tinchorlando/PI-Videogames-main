@@ -80,6 +80,7 @@ export default function Home (){
               searchedGame={searchedName}
               endSearch={endSearch}
               notFound={notFound}
+              current={setCurrentPage}
             />
           </main>
         </div>

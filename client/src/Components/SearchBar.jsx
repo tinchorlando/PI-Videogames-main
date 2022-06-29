@@ -18,9 +18,14 @@ export default function SearchBar (){
     };
     const handleSubmit = (event)=>{
         event.preventDefault()
-        dispatch(exitFilters())
-        dispatch(saveSearch(input.searchBar))
-        dispatch(getSome(input.searchBar))
+        
+        if(!input.searchBar){
+            alert('Ingrese un nombre')
+        }else{
+            dispatch(exitFilters())
+            dispatch(saveSearch(input.searchBar))
+            dispatch(getSome(input.searchBar))
+        }
         setInput({
             searchBar:''
         })

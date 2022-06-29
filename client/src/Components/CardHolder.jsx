@@ -3,7 +3,7 @@ import Filter from "./Filter"
 import SearchBar from "./SearchBar"
 import s from './Styles/CardHolder.module.css'
 
-export default function CardHolder({ videogames , currentGames , loaded , searchedGame , endSearch,notFound}){
+export default function CardHolder({ videogames , currentGames , loaded , searchedGame , endSearch,notFound, current}){
 
 const mapCard = (p=>(<Card key={p.id} id={p.id} name={p.name} image={p.image}  genres={p.genres}/>))
 
@@ -13,7 +13,7 @@ if (loaded){
         <div>
             <header className={s.tops}>
                 <SearchBar />
-                <Filter />
+                <Filter setPage={current}/>
             </header>         
             {
                 videogames.key === 'searched' ? (

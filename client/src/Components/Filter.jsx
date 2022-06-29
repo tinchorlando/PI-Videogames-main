@@ -4,7 +4,7 @@ import { exitFilters, filterBy, orderSort } from "../Redux/Actions";
 import s from './Styles/Filter.module.css';
 
 
-export default function Filter (){
+export default function Filter (props){
 let [storeFiltered, storeGenres, storeVideogames , storeSearched] = useSelector((store) => [
   store.filteredGames,
   store.genres,
@@ -70,6 +70,7 @@ useEffect(()=>{
             }
             if (match===true) return p
         })))
+        props.setPage(1)
     }
     else {
         dispatch(exitFilters())
