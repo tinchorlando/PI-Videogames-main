@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { exitSearch, getAll, getGenres } from "../../../Redux/Actions";
 import CardContainer from "../../Containers/CardContainer";
 import Pagination from "../../Components/Pagination";
-
+import FilterBar from "../../Containers/Filter-search";
 
 export default function Home (){
     const [isLoading, setIsLoading] = useState(true);
@@ -78,7 +78,7 @@ export default function Home (){
         <header>
           <h1>HENRY GAMES</h1>
           <section>
-            Zona del filtrado. Searchbar del otro lado. Expandible
+            <FilterBar setCurrentPage={setCurrentPage}/>
           </section>
         </header>
         <section>
