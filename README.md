@@ -40,10 +40,6 @@ Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credencial
 Reemplazar `yourApiKey` con una apiKey personal obtenida gratuitamente en la api externa [rawg](https://rawg.io/apidocs)
 Adicionalmente será necesario que creen desde psql una base de datos llamada `videogames`
 
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
-
-
 ## Construido con 🛠️
 
 * React
