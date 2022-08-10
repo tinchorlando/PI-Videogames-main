@@ -1,0 +1,87 @@
+.mainList {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+ul{
+    list-style: none;
+}
+
+nav li{
+    margin-top: 5px;
+    position: relative;
+    width:fit-content;
+}
+nav li>ul{
+    display:none;
+}
+label{
+    width:120px;
+}
+#filterControl{
+    display: none;
+}
+#orderControl{
+    display: none;
+}
+.boxContainer{
+    display:none;
+}
+#filterControl:checked + div {
+    display:block;
+    position:absolute;
+    background-color: #F54768;
+    border-radius:10px;
+    padding:10px;
+    box-shadow: 0 0 5px black;
+    width: 300px;
+    text-align: center;
+}
+#filterControl:checked + div > ul{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-family: fantasy;
+    font-weight: 100;
+    color:palegoldenrod;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
+    
+}
+
+#orderControl:checked + ul{
+    display:flex;
+    flex-direction:column;
+    border-radius:10px;
+    padding: 10px;
+    position: absolute;
+    background-color: #F54768;
+    width: max-content;
+    box-shadow: 0 0 5px black;
+    font-family: fantasy;
+    font-weight: 100;
+    color:palegoldenrod;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
+}
+
+
+.list{
+    list-style:none;        
+}
+.clear{
+    position:absolute;
+    right:0px;
+}
+.searchbar{    
+    display:flex;
+}
+
+.subtit{
+    align-self: center;
+    font-family: fantasy;
+    font-weight: 100;
+    color:palegoldenrod;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
+}
+.orderLi{
+    width:fit-content;
+}

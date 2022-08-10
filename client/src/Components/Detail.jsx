@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom";
 import { exitDetail, getOne } from "../Redux/Actions";
+import Loading from "../Rework front/Components/Loading";
 import s from './Styles/Detail.module.css';
 export default function Detail (){
     let state = useSelector(state=>state.gameDetail);
@@ -79,7 +80,7 @@ export default function Detail (){
                         </ul>
                     </div>
                 </div>
-                ) : (<h2 className={`${s.txt} ${s.load}`}>...Loading</h2>)
+                ) : (<div className={s.load}><Loading/></div>)
             }
         </div>
     )

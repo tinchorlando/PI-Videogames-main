@@ -4,7 +4,7 @@ import { Route, useLocation } from 'react-router-dom';
 import Welcome from './Components/Welcome.jsx';
 import Detail from './Components/Detail.jsx';
 import Form from './Components/Form.jsx';
-import Home from './Components/Home.jsx';
+import Home from './Rework front/Pages/Home/index.jsx';
 import Nav from './Components/Nav.jsx';
 
 function App() {

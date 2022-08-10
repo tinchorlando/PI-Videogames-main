@@ -1,5 +1,5 @@
 body{
-    background-color: #41436A;
+    background-color: #974063;
 }
 .bgrd{
     text-align: center;
@@ -7,6 +7,7 @@ body{
 .img{
     border-radius: 50%;
     max-width: 300px;
+    margin:auto;
 }
 
 .button{

@@ -3,6 +3,7 @@
     background-color: #41466a;
     color: palegoldenrod;
     text-align: center;
+    width:250px;
 }
 .input::placeholder{
     color:palegoldenrod;
@@ -23,7 +24,7 @@
     font-family: fantasy;
     font-weight: 100;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    min-width:85px;
+    min-width:120px;
 }
 .btn:hover{
     box-shadow:none;

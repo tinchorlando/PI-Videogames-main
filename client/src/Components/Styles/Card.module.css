@@ -21,11 +21,11 @@
     color: palegoldenrod;
 }
 .cardName{    
-    align-self: stretch;
+    align-self: center;
     font-weight: 400;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
 }
 
 .cardImg{
@@ -36,6 +36,14 @@
     min-height: 300px;
     max-height: inherit;
 
+}
+.loading{
+    align-self: center;
+    margin: 10px;
+    border-radius: 10px;
+    max-width: -webkit-fill-available;
+    min-height: 300px;
+    max-height: inherit;
 }
 
 .genreList{

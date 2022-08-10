@@ -1,6 +1,20 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import s from '../../../Components/Styles/Card.module.css';
+import Loading from "../Loading";
 export default function Card (props){
+    const [showImage,setShowImage] = useState(false)
+    let firstRender = true
+    useEffect(()=>{
+        if (firstRender){            
+            setTimeout(()=>{            
+                setShowImage(true)
+            },3000)
+            firstRender=false;
+        }
+    },[])
+    
     return(
         <div id={props.id}>
 
@@ -9,8 +23,10 @@ export default function Card (props){
                 <div className={s.card}>
 
                     <h2 className={s.cardName}>{props.name}</h2>
-
-                    <img className={s.cardImg} src={props.image} alt={`${props.name}'s foto`}/>
+                    {
+                        showImage ? <img className={s.cardImg} src={props.image} alt={`${props.name}'s foto`}/> : <Loading/>
+                    }
+                    
 
                     <ul className={s.genreList}>
                         {

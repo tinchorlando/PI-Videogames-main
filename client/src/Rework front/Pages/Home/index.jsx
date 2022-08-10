@@ -6,6 +6,8 @@ import { exitSearch, getAll, getGenres } from "../../../Redux/Actions";
 import CardContainer from "../../Containers/CardContainer";
 import Pagination from "../../Components/Pagination";
 import FilterBar from "../../Containers/Filter-search";
+import s from "./home.module.css";
+import Loading from "../../Components/Loading";
 
 export default function Home (){
     const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +17,7 @@ export default function Home (){
     const [storeGames, storeFiltered, storeSearched, searchedName, notFound] =
       useSelector((store) => [
         store.videogames,
-        store.filtered,
+        store.filteredGames,
         store.searchedGames,
         store.searchedName,
         store.notFound,
@@ -38,24 +40,25 @@ export default function Home (){
       }
     }, [storeGames]);
 
+    
     useEffect(() => {
       //data selector ↓
-      if (storeFiltered.length) {
-        setVideogames({
-          list: [...storeFiltered],
-          key: "filtered",
-        });
-      } else if (storeSearched.length || searchedName) {
-        setVideogames({
-          list: [...storeSearched],
-          key: "searched",
-        });
-      } else {
-        setVideogames({
-          list: [...storeGames],
-          key: "list",
-        });
-      }
+        if (storeFiltered.length) {
+          setVideogames({
+            list: [...storeFiltered],
+            key: "filtered",
+          });
+        } else if (storeSearched.length || searchedName) {
+          setVideogames({
+            list: [...storeSearched],
+            key: "searched",
+          });
+        } else {
+          setVideogames({
+            list: [...storeGames],
+            key: "list",
+          });
+        }
     }, [
       storeGames,
       storeFiltered,
@@ -83,22 +86,26 @@ export default function Home (){
         </header>
         <section>
           {isLoading ? (
-            <h1>Loading...</h1>
+            <div className={s.loader}><Loading /></div>
           ) : (
             <main>
               <CardContainer
               videogames={videogames}
-              currentGames={currentGames}
-              loaded={dataLoaded}
+              currentGames={currentGames}              
               searchedGame={searchedName}
               endSearch={endSearch}
               notFound={notFound}
               />
-              <Pagination totalGames={videogames.list.length} paginate={paginate}/>
+              <Pagination totalGames={videogames.list.length} paginate={paginate} notFound={notFound} currentPage={currentPage}/>
             </main>
           )}
         </section>
-        <footer>linkedIn</footer>
+        <footer>
+          <ul>
+            <li><a className={s.link} href="https://www.linkedin.com/in/martin-orlando-developer/">LinkedIn</a></li>
+            <li><a className={s.link} href="https://github.com/tinchorlando">Github</a></li>
+          </ul>
+        </footer>
       </div>
     );
 }

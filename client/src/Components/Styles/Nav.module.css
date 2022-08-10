@@ -1,12 +1,12 @@
 .navBar{
-    background-color: #41466a;
+    background-color: #974063;
 }
 .navigation{
     display: flex;
     justify-content: space-around;
 }
 .navBtn{
-    background-color: #974063;
+    background-color: #41436A;
     width: -moz-fit-content;
     width: -webkit-fill-available;
     border-radius: 10px;
