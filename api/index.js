@@ -19,7 +19,7 @@ const loadGenresToDb = ()=>{
       })
       .then(readyGenres=>{
         Genre.bulkCreate(readyGenres)
-        return console.log('%s is listening at port 3001')
+        return console.log(`%s is listening at port ${process.env.PORT}`)
       })
     }
   })
@@ -28,9 +28,9 @@ const loadGenresToDb = ()=>{
 
 // Syncing all the models at once.
 conn.sync().then(() => {
-  server.listen(3001, () => {
+  server.listen(process.env.PORT, () => {
     loadGenresToDb()
-    console.log('%s is listening at port 3001')
+    console.log(`%s is listening at port ${process.env.PORT}`)
      // eslint-disable-line no-console
   });
 });
