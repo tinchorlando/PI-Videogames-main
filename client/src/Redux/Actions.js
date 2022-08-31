@@ -4,7 +4,7 @@ import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EX
 
 export const getAll = ()=>{
     return async dispatch =>{        
-        axios.get(`http://localhost:3001/videogames/`)    
+        axios.get(`/videogames/`)    
         .then(res=>res.data)
         .then(videogames=>{
             dispatch({
@@ -16,7 +16,7 @@ export const getAll = ()=>{
 };
 export const getSome = (name)=>{
     return async dispatch =>{        
-        axios.get(`http://localhost:3001/videogames/?name=${name}`)
+        axios.get(`/videogames/?name=${name}`)
         .then(res=>res.data)
         .then(videogames=>{
             dispatch({
@@ -28,7 +28,7 @@ export const getSome = (name)=>{
 }
 export const verifyName = (name)=>{
     return async dispatch =>{
-        axios.get(`http://localhost:3001/videogames/?name=${name}`)
+        axios.get(`/videogames/?name=${name}`)
         .then(res=>res.data)
         .then((videogames)=>{
             if (videogames.filter(p=>{ let regexp = /.*[a-zA-Z].*/            
@@ -56,7 +56,7 @@ export const verifyName = (name)=>{
 
 export const getGenres = ()=>{
     return async dispatch =>{
-        const res= await axios.get('http://localhost:3001/genres');
+        const res= await axios.get('/genres');
         dispatch({
             type:GET_GENRES,
             payload:res.data,
@@ -66,7 +66,7 @@ export const getGenres = ()=>{
 
 export const getOne = (id) =>{
     return async dispatch =>{
-        const res = await axios.get(`http://localhost:3001/videogame/${id}`);
+        const res = await axios.get(`/videogame/${id}`);
         dispatch({
             type:GET_ONE,
             payload:res.data,
@@ -77,7 +77,7 @@ export const getOne = (id) =>{
 export const postNew = (name,description,released,rating,genre,platforms,image)=>{
     return async dispatch=>{
         try{
-            await axios.post('http://localhost:3001/videogames',{
+            await axios.post('/videogames',{
                 name,
                 description,
                 released,
