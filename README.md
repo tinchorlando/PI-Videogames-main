@@ -26,19 +26,31 @@ npm -v
 
 ### Instalación 🔧
 
-_El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
+El boilerplate cuenta con dos carpetas: `api` y `client`. En estas carpetas estará el código del back-end y el front-end respectivamente.
 
 En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
 
 ```env
+DB_NAME=nombrededatabase
 DB_USER=usuariodepostgres
 DB_PASSWORD=passwordDePostgres
 DB_HOST=localhost
+PORT=3001
+NODE_ENV=development
+//en caso de  realizar un deploy setear NODE_ENV=production
 API_KEY=yourApiKey
+FRONT_DEPLOY= //de existir un deploy en front ingresar aquí la URL Del mismo, de lo contrario dejar en blanco
 ```
+
+Si se deseara realizar un deploy del repositorio, en la carpeta `client` crear otro archivo llamado `.env` con:
+
+```env
+REACT_APP_API= URL del deploy del backend
+```
+
 Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres
 Reemplazar `yourApiKey` con una apiKey personal obtenida gratuitamente en la api externa [rawg](https://rawg.io/apidocs)
-Adicionalmente será necesario que creen desde psql una base de datos llamada `videogames`
+Adicionalmente será necesario que creen desde psql una base de datos con el nombre utilizado en DB_NAME del .env
 
 ## Construido con 🛠️
 
