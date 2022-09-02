@@ -3,17 +3,17 @@
     background-color: #F54768;
     font-family: fantasy;
     color: palegoldenrod;
-    text-align: center;
-    /* padding: 5px 0 5px 0; */
+    text-align: center;    
     box-shadow: 0 0 3px black;
-    margin: 0 5px 0 5px;
     font-weight: 100;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;    
-    width: inherit;
+    width: 100%;
+    height: 100%;
     
 }
 .btn:hover{
     box-shadow:none;
     background-color: #FF9677;
     color: #41436A;
+    cursor: pointer;
 }

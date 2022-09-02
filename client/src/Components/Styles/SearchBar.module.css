@@ -3,7 +3,9 @@
     background-color: #41466a;
     color: palegoldenrod;
     text-align: center;
-    width:250px;
+    min-width: 110px;
+    max-width: 300px;
+    width: 70%;
 }
 .input::placeholder{
     color:palegoldenrod;
@@ -24,10 +26,19 @@
     font-family: fantasy;
     font-weight: 100;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    min-width:120px;
+    min-width: 50px;
+    max-width: 80px;
+    width: 30%;
+    cursor: pointer;
 }
 .btn:hover{
     box-shadow:none;
     background-color: #FF9677;
     color: #41436A;
+}
+.search{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
 }

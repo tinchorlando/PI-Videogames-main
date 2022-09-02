@@ -1,22 +1,24 @@
 .mainList {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    display: flex;    
+    justify-content: space-between;
 }
 ul{
     list-style: none;
+    padding-left: 0px;
 }
 
 nav li{
     margin-top: 5px;
     position: relative;
-    width:fit-content;
+    width:33%;
+    display:flex;
+    justify-content: center;
 }
 nav li>ul{
     display:none;
 }
 label{
-    width:120px;
+    width:70px;
 }
 #filterControl{
     display: none;
@@ -30,6 +32,9 @@ label{
 #filterControl:checked + div {
     display:block;
     position:absolute;
+    top: 30px;
+    left: 10px;
+    z-index: 9999;
     background-color: #F54768;
     border-radius:10px;
     padding:10px;
@@ -50,10 +55,12 @@ label{
 
 #orderControl:checked + ul{
     display:flex;
+    z-index: 9999;
     flex-direction:column;
     border-radius:10px;
     padding: 10px;
     position: absolute;
+    top: 30px;
     background-color: #F54768;
     width: max-content;
     box-shadow: 0 0 5px black;
@@ -73,6 +80,8 @@ label{
 }
 .searchbar{    
     display:flex;
+    width: 60%;
+    justify-content: center;
 }
 
 .subtit{
@@ -84,4 +93,12 @@ label{
 }
 .orderLi{
     width:fit-content;
+}
+.genreList li{
+    margin: auto 0;
+    padding: 7px 0;
+}
+.genreList::after{
+    content: "";
+    width:198px;
 }

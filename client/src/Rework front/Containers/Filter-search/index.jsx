@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { exitFilters, filterBy, orderSort } from "../../../Redux/Actions";
-import SearchBar from "../../../Components/SearchBar";
+import SearchBar from "../../Components/SearchBar/SearchBar.jsx";
 import s from "./filter.module.css"
 import Button from "../../Components/Buttons";
 
@@ -13,10 +13,7 @@ export default function FilterBar({ setCurrentPage }) {
       store.videogames,
       store.searchedGames,
     ]);
-  // const [toggleBar, setToggleBar] = useState(false);
-  // const [toggleFilters, setToggleFilters] = useState(false);
-  // const [toggleOrder, setToggleOrder] = useState(false);
-  // const [toggleOrigin, setToggleOrigin] = useState(false);
+
   const [genreFilter, setGenreFilter] = useState([]);
   const [order, setOrder] = useState([]);
   const [games, setGames] = useState([]);
@@ -119,44 +116,45 @@ export default function FilterBar({ setCurrentPage }) {
     <nav>
       <ul className={s.mainList}>
         <li>
-        <label for={s["filterControl"]}><Button text={"Filter"}/></label>
-        <input type="checkbox" id={s["filterControl"]} />
+          <label for={s["filterControl"]}><Button text={"Filter"}/></label>
+          <input type="checkbox" id={s["filterControl"]} />
           <div className={s.boxContainer}>
-          <h3 className={s.subtit}>by Genre</h3>
-          <ul className={s.list}>
-          {storeGenres.map((p) => (
-              <li key={p.id}>
+            <h3 className={s.subtit}>by Genre</h3>
+            <ul className={`${s.list} ${s.genreList}`}>
+            {storeGenres.map((p) => (
+                <li key={p.id}>
+                  <input
+                    type="checkbox"
+                    value={p.name}
+                    onChange={handleFilterChange}
+                    ></input>
+                    {p.name}
+                </li>
+              ))}
+            </ul>
+            <h3 className={s.subtit}>by Origin</h3>
+            <ul className={s.list}>
+            <li>
                 <input
                   type="checkbox"
-                  value={p.name}
+                  name="origin"
+                  value="api"
                   onChange={handleFilterChange}
-                  ></input>
-                  {p.name}
+                ></input>
+                Api
               </li>
-            ))}
-          </ul>
-          <h3 className={s.subtit}>by Origin</h3>
-          <ul className={s.list}>
-          <li>
-              <input
-                type="checkbox"
-                name="origin"
-                value="api"
-                onChange={handleFilterChange}
-              ></input>
-              Api
-            </li>
-            <li>
-              <input
-                type="checkbox"
-                name="origin"
-                value="dataBase"
-                onChange={handleFilterChange}
-              ></input>
-              Database
-            </li>
-          </ul>
-          </div></li>
+              <li>
+                <input
+                  type="checkbox"
+                  name="origin"
+                  value="dataBase"
+                  onChange={handleFilterChange}
+                ></input>
+                Database
+              </li>
+            </ul>
+          </div>
+        </li>
         <li className={s.searchbar}>
           <SearchBar />
         </li>
