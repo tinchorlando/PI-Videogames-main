@@ -3,7 +3,7 @@
     flex-direction: column;
     border-style: solid;
     border-radius: 10px;
-    width:400px;
+    width: 374px;
     justify-content: center;
     margin: 10px;
     box-shadow: 0 0 5px black;
@@ -54,3 +54,8 @@
 
 }
 
+@media(max-width: 400px){
+    .card{
+        width: 90vw;        
+    }
+}
