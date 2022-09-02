@@ -5,9 +5,6 @@ Es un proyecto individual con los objetivos de:
 - Aprender mejores prácticas.
 - Aprender y practicar el workflow de GIT.
 
-## Comenzando 🚀
-
-
 ### Pre-requisitos 📋
 
 __IMPORTANTE:__ Es necesario contar minimamente con la última versión estable de Node y NPM. Asegurarse de contar con ella para poder instalar correctamente las dependecias necesarias para correr el proyecto.
@@ -66,6 +63,7 @@ El sitio permite:
 - Filtrado activo y combinable por géneros, origen de la información obtenida (solicitado a la api externa o a la base de datos)
 - Ordenamiento de la información obtenida según fecha de lanzamiento o orden alfabético
 - Creación de juegos al listado, con control de existencia previa en la base de datos
+- Visualización apta para telefonos móviles
 ## Imágenes ✨
 
 <p align="center">
