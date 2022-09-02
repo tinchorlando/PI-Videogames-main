@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getAll, getGenres , postNew, resetPost, verifyName } from "../Redux/Actions";
+import Button from "../Rework front/Components/Buttons";
+import Loading from "../Rework front/Components/Loading";
 import s from './Styles/Form.module.css';
 
 
@@ -12,7 +14,7 @@ export default function Form (){
     const [game,setGame] = useState({});
     const [errors,setErrors] = useState({});
     const [genres,setGenres] = useState([]);
-    const [showGenres,setShowGenres] = useState(false);
+    // const [showGenres,setShowGenres] = useState(false);
     const [platforms,setplatforms] = useState([])
 
     useEffect(()=>{
@@ -103,9 +105,9 @@ export default function Form (){
     const checkName = async(name)=>{
         if (name) dispatch(verifyName(name.toLowerCase()))
     }
-    const showGenre = ()=>{
-        showGenres ? setShowGenres (false) :setShowGenres(true)
-    }
+    // const showGenre = ()=>{
+    //     showGenres ? setShowGenres (false) :setShowGenres(true)
+    // }
     
     const handleSubmit = (event)=>{
         event.preventDefault()
@@ -113,7 +115,7 @@ export default function Form (){
             dispatch(postNew(game.name,game.description,game.released,game.rating,genres,platforms,game.image))
             setLoaded(false)
             dispatch(getAll())
-        }
+        } else alert("Revise errores")
     }
 return(
     <div>
@@ -148,29 +150,23 @@ return(
                      <input className={s.input} type="text" name="image" onChange={handleChange}></input>
                      {errors.image ? (<span className={s.error} id='errorImage'>{errors.image}</span>) :null}
                     
-
-                    <label className={s.text}>Genres</label>
-                        <div id='genresContainer'>
-                         <input className={s.button} type='button' id='showGenres' value='Show genres' onClick={showGenre}></input>
-                        
-                        {
-                            showGenres ? (<ul className={`${s.genreList} ${s.text}`}>
+                    <label className={s.margin} for={s["genresContainer"]}><Button text={"Genres"}/></label>
+                    <input type="checkbox" id={s["genresContainer"]}/>
+                    <div id={s["genresBox"]}>
+                        <ul className={`${s.genreList} ${s.text}`}>
                                 {
                                     storeGenres.map(genre=>(
                                         <li key={genre.id}><input type='checkbox' value={`${genre.id}`} onChange={handleGenreChange}></input>{genre.name}</li>
                                     ))
                                 }
-                                </ul>) : null
-                        }
-                        
-                        </div>
-
+                        </ul>
+                    </div>
 
                     <button className={s.button} type="submit">Submit</button>
-        
+       
                 </form>
             </div>
-            ) : (<h2 className={`${s.text} ${s.tit}`}>Loading...</h2>)
+            ) : <div className={s.loader}><Loading /></div>
         }
         
     </div>

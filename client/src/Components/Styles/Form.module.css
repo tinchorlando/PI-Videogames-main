@@ -1,16 +1,22 @@
 .form{
     display: flex;
     flex-direction: column;
-    max-width: 620px;
-    background-color: #974063;
+    max-width: 620px;    
     align-items: center;
+    text-align: center;
     border-radius: 10px;
     width: 400px;
     font-size:1.1em;
 }
 .mainDiv{
+    width: 60%;    
+    background-color: #41466a;
     display: flex;
     flex-direction: column;
+    margin: 40px auto;
+    border-radius: 10px;
+    max-width: 530px;
+    min-width: fit-content;
     align-items: center;
 }
 
@@ -29,7 +35,7 @@
 
 .input{
     border-radius: 10px;
-    background-color: #41466a;
+    background-color: #974063;
     min-width: 250px;    
     color: palegoldenrod;
     text-align: center;
@@ -73,4 +79,16 @@
     background-color:#FF9677;
     color: #41436A;
     box-shadow:none;
+}
+#genresContainer{
+    display: none;
+}
+#genresBox{
+    display: none;
+}
+#genresContainer:checked + div{
+    display: block;
+}
+.margin{
+    margin: 10px auto;
 }
