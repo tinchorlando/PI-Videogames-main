@@ -8,6 +8,7 @@ import Pagination from "../../Components/Pagination";
 import FilterBar from "../../Containers/Filter-search";
 import s from "./home.module.css";
 import Loading from "../../Components/Loading";
+import Button from "../../Components/Buttons";
 
 export default function Home (){
     const [isLoading, setIsLoading] = useState(true);
@@ -100,10 +101,13 @@ export default function Home (){
             </main>
           )}
         </section>
-        <footer>
+        <footer className={s.links}>
           <ul>
-            <li><a className={s.link} href="https://www.linkedin.com/in/martin-orlando-developer/">LinkedIn</a></li>
-            <li><a className={s.link} href="https://github.com/tinchorlando">Github</a></li>
+            <li className={s.linkContainer}>
+              <Button text={<a className={s.link} href="https://www.linkedin.com/in/martin-orlando-developer/" target="_blank">LinkedIn</a>}/>
+            </li>
+            <li className={s.linkContainer}>
+              <Button text={<a className={s.link} href="https://github.com/tinchorlando" target="_blank">Github</a>}/></li>
           </ul>
         </footer>
       </div>

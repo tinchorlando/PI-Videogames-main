@@ -29,13 +29,27 @@ ul{
     color: palegoldenrod;
     margin: 0 2px 2px 0;
     font-size: 1.5em;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-content: center;
+    min-width: 100px;
 }
 .link:hover{
-    color:#FF9677
+    color:#41466a
 }
 
 .loader{
     background-color: #41466a;
     border-radius:10px;
     height:500px;
+}
+.linkContainer{
+    width:30%;
+    min-width:100px;
+    max-width: 220px;
+    height:50px;
+}
+.links{
+    margin-top: 10px;
 }
