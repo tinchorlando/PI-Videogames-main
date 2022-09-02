@@ -22,61 +22,61 @@ export default function Detail (){
         }},[])
 
     const divStyle ={
-        backgroundImage: `url(${state.image})`,
-        backgroundSize: 'cover',
-        minHeight: '840px',
-        borderRadius:'10px',
-        marginTop:'10px',
+        backgroundImage: `url(${state.image})`,        
+        backgroundSize:'cover',
+        backgroundRepeat:'norepeat',
+        backgroundPositionX:'center',
+        borderRadius:'20px',
+        margin: '10px auto',
+        padding: '10px',
+        boxShadow: 'rgba(0 0 0 / 95%) 0px 0px 15px',        
     }
+
+//box-shadow: rgba(0 0 0 / 95%) 0px 5px 15px
     return(
         <div style={divStyle}>
             {
                 dataLoaded ? (
                 <div className={s.content}>
-                    <h2 className={`${s.txt} ${s.tit}`}>
-                        {state.name}
-                    </h2>                    
-                    <h3 className={`${s.txt} ${s.tit}`}>
-                        Description:
-                    </h3>
-                    <p className={s.desc}>
-                        {state.description}
-                    </p>
-                    <div className={s.num}>
-                    <h4 className={`${s.dat} ${s.txt}`}>
-                        Released on: {state.released}
-                    </h4>
+                    <div className={`${s.desc} ${s.shadow}`}>
+                        <h1 className={`${s.txt} ${s.tit}`}>{state.name}</h1>                    
+                        <h3 className={`${s.txt} ${s.tit}`}>Description:</h3>
+                        <p>{state.description}</p>
+                    </div>
+                    <div className={`${s.num} ${s.shadow}`}>
+                        <h4 className={`${s.dat} ${s.txt}`}>
+                            Released on: {state.released}
+                        </h4>
 
-                    <h4 className={`${s.dat} ${s.txt}`}>
-                        Rating: {state.rating ? state.rating : 'No data'}
-                    </h4>
+                        <h4 className={`${s.dat} ${s.txt}`}>
+                            Rating: {state.rating ? state.rating : 'No data'}
+                        </h4>
                     </div>
 
-                    
-                    <div className={s.listados}>
-                        <h3 className={s.txt}>
-                            Genres:
-                        </h3>
-                        <ul className={s.lists}>
-                            {
+                    <div className={`${s.listados} ${s.shadow}`}>
+                        <ul className={s.bigList}>
+                            <li><h3 className={s.txt}>Genres:</h3>
+                                <ul className={s.lists}>
+                                {
                                 state.genres.length ? state.genres.map(p=>{
                                     return(
                                         <li key={p.id}>{p.name}</li>
                                     )
                                 }) : 'No data'
-                            }
-                        </ul>
-                        <h3 className={s.txt}>
-                            Platforms: 
-                        </h3>
-                        <ul className={s.lists}>
-                            {
+                                }
+                                </ul>
+                            </li>
+                            <li><h3 className={s.txt}>Platforms</h3>
+                                <ul className={s.lists}>
+                                {
                                 state.platforms.length ? state.platforms.map(p=>{
                                     return(
                                         <li key={p}>{p}</li>
                                     )
                                 }) : 'No data'
-                            }
+                                }
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
