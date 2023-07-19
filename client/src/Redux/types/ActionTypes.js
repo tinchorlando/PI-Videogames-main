@@ -1,28 +1,13 @@
-const GET_ALL = 'GET_ALL';
-const GET_ONE = 'GET_ONE';
-const GET_SOME = 'GET_SOME';
-const GET_GENRES = 'GET_GENRES' ;
-const POST_NEW = 'POST_NEW';
-const EXIT_DETAIL = 'EXIT_DETAIL';
-const EXIT_SEARCH = 'EXIT_SEARC';
-const SAVE_SEARCH = 'SAVE_SEARCH';
-const FILTER_GENRE = 'FILTER_GENRE';
-const EXIT_FILTER = 'EXIT_FILTER';
-const FILTER_ORDER = 'FILTER_ORDER';
-const FILTER_ORIGIN ='FILTER_ORIGIN';
-const POST_RESET = 'POST_RESET'
-module.exports={
-    GET_ALL,
-    GET_ONE,
-    GET_SOME,
-    GET_GENRES,
-    POST_NEW,
-    EXIT_DETAIL,
-    EXIT_SEARCH,
-    SAVE_SEARCH,
-    FILTER_GENRE,
-    EXIT_FILTER,
-    FILTER_ORDER,
-    FILTER_ORIGIN,
-    POST_RESET
-}
+export const GET_ALL = 'GET_ALL';
+export const GET_ONE = 'GET_ONE';
+export const GET_SOME = 'GET_SOME';
+export const GET_GENRES = 'GET_GENRES' ;
+export const POST_NEW = 'POST_NEW';
+export const EXIT_DETAIL = 'EXIT_DETAIL';
+export const EXIT_SEARCH = 'EXIT_SEARC';
+export const SAVE_SEARCH = 'SAVE_SEARCH';
+export const FILTER_GENRE = 'FILTER_GENRE';
+export const EXIT_FILTER = 'EXIT_FILTER';
+export const FILTER_ORDER = 'FILTER_ORDER';
+export const FILTER_ORIGIN ='FILTER_ORIGIN';
+export const POST_RESET = 'POST_RESET'

@@ -1,0 +1,44 @@
+.input {
+    border-radius: 10px;
+    background-color: #41466a;
+    color: palegoldenrod;
+    text-align: center;
+    min-width: 110px;
+    max-width: 300px;
+    width: 70%;
+}
+.input::placeholder{
+    color:palegoldenrod;
+    font-family: fantasy;
+    font-weight: 100;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+}
+.input::selection{
+    background-color:#41466a;
+}
+.btn{
+    border-radius: 10px;
+    background-color: #F54768;
+    border-style: none;
+    box-shadow: 0 0 3px black;
+    color: palegoldenrod;
+    font-family: fantasy;
+    font-weight: 100;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    min-width: 50px;
+    max-width: 80px;
+    width: 30%;
+    cursor: pointer;
+}
+.btn:hover{
+    box-shadow:none;
+    background-color: #FF9677;
+    color: #41436A;
+}
+.search{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+}

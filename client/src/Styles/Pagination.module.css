@@ -1,0 +1,21 @@
+.container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    list-style: none;
+    background-color: #974063;
+    border-radius:10px;
+    
+}
+.link{
+    text-decoration: auto;
+    color: palegoldenrod;
+    margin: 0 7px 7px 0;
+    font-size: 1.5em;
+}
+.link:hover{
+    color:#F54768;
+}
+.active{
+    color:#F54768;
+}
