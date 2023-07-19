@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , POST_RESET} from './types/ActionTypes.js'
-
+import { GET_ALL , GET_GENRES , GET_ONE , SAVE_SEARCH , POST_NEW , GET_SOME , EXIT_SEARCH , EXIT_DETAIL , FILTER_GENRE , EXIT_FILTER , FILTER_ORDER , POST_RESET} from './types/ActionTypes'
 
 export const getAll = ()=>{
     return async dispatch =>{        

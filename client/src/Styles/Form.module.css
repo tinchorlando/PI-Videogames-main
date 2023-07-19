@@ -1,0 +1,94 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    max-width: 620px;    
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    width: 400px;
+    font-size:1.1em;
+}
+.mainDiv{
+    width: 60%;    
+    background-color: #41466a;
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
+    border-radius: 10px;
+    max-width: 530px;
+    min-width: fit-content;
+    align-items: center;
+}
+
+.text{
+    font-family: fantasy;
+    font-weight: 100;
+    color:palegoldenrod;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.error{
+    color: red;
+    font-family: fantasy;
+    font-weight: 100;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.input{
+    border-radius: 10px;
+    background-color: #974063;
+    min-width: 250px;    
+    color: palegoldenrod;
+    text-align: center;
+    box-shadow: 0 0 3px 2px rgb(0 0 0 / 20%);
+}
+.input::placeholder{
+    color:palegoldenrod;
+    font-family: fantasy;
+    font-weight: 100;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.input::selection{
+    background-color:#41466a;
+}
+
+.tit{
+    text-align: center;
+}
+
+.genreList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.button{
+    min-width: 250px;
+    border-radius: 10px;
+    background-color: #F54768;
+    border-style:none;
+    margin:5px;
+    font-family: fantasy;
+    color:palegoldenrod;
+    font-weight: 100;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    box-shadow: 0 0 3px black;
+}
+.button:hover{
+    background-color:#FF9677;
+    color: #41436A;
+    box-shadow:none;
+}
+#genresContainer{
+    display: none;
+}
+#genresBox{
+    display: none;
+}
+#genresContainer:checked + div{
+    display: block;
+}
+.margin{
+    margin: 10px auto;
+}
