@@ -7,7 +7,6 @@ app.get('/',async(req,res,next)=>{
         if (name) res.status(200).json(await getGames(name))
         else res.status(200).send(await getGames());        
     } catch(error){
-        console.log(error)
         res.status(404).json({
             "Error":"Juego no encontrado",
             

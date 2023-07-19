@@ -7,7 +7,7 @@ const routes = require('./routes/index.js');
 require('./db.js');
 
 const server = express();
-const baseURL = process.env.FRONT_DEPLOY || 'http://localhost:3000';
+const baseURL = process.env.FRONT_DEPLOY || 'http://localhost:5173';
 server.name = 'API';
 
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));

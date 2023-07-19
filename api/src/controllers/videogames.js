@@ -1,13 +1,13 @@
-const { API_KEY } = process.env;
 
 const { apiQuery, findAllGamesDb, apiGameCollector , searchGamesDb } = require("../services");
+const { API_KEY } = process.env;
 
-const getAllFromApi = () => {
+const getPromisesFromApi = () => {
     const MAX_PAGES = 5;
     let pagenumer = 1;
     let promiseArray = [];
     for (let i = 0; i < MAX_PAGES; i++) {
-        let URL = `https://api.rawg.io/api/games?key=${API_KEY}&page=${pagenumer}`;
+        let URL = `https://api.rawg.io/api/games?key=${API_KEY}&page=${pagenumer}`
         promiseArray.push(
             apiQuery(URL)
             .then(res => res.results)
@@ -15,13 +15,11 @@ const getAllFromApi = () => {
         );
         pagenumer += 1;
     }
-    const games = Promise.all(promiseArray)
+    // return promiseArray
+    let games = Promise.all(promiseArray)
     .then(res=>res.flat(Infinity))
-    .then(res=>apiGameCollector(res))
-    .catch(err => {
-        console.log('error: ',err)
-        new Error({message: err})
-    });
+    .then(res=> apiGameCollector(res))
+    .catch(err => new Error({message: err}));
     return games;
 };
 
@@ -41,10 +39,7 @@ const searchFromApi = name =>{
 }
 const searchFromDb = name=>{
     const foundGames = searchGamesDb(name)
-    .then(res=>{
-        console.log(res)
-        return res
-    })
+    .then(res=>res)
     .catch(err => new Error(err))
     return foundGames
 }
@@ -58,7 +53,7 @@ const getGames = async (name = null) =>{
         }
         return apiGames
     } else{
-        const apiGames = await getAllFromApi();
+        const apiGames = await getPromisesFromApi();
         const dbGames = await getAllFromDb();
         if (dbGames) return [...apiGames,...dbGames]
         return apiGames
