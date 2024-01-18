@@ -65,8 +65,6 @@ El sitio permite:
 - Creación de juegos al listado, con control de existencia previa en la base de datos
 - Visualización apta para telefonos móviles
 
-## Deploy 🎇
-<a href="http://tinchorlando-games.vercel.app" target="_blank">Link</a>
 ## Imágenes ✨
 
 <p align="center">
